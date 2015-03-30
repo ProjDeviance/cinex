@@ -31,14 +31,21 @@
                 <li class="active"><a href="#" class="" style="">Explore</a>
 
                 </li>
+				
                 <li><a href="#" class="">Looks</a>
 
                 </li>
-                <li><a href="#" class="">About</a>
-
+				
+                <li>
+					<a href="#" class="">About</a>
                 </li>
-                <li><a href="#myModal" data-toggle="modal" data-target="#myModal">Sign in</a>
-
+				
+                <li>
+					<a href="#myModal" data-toggle="modal" data-target="#myModal">Sign in</a>
+                </li>
+				
+				<li>
+					<a href="/Register">Register</a>
                 </li>
                 
             </ul>
@@ -46,6 +53,7 @@
         <!--/.nav-collapse -->
     </div>
 </div>
+
 <div class="container">
     <div class="col-md-12">
         <div class="center-block text-center">
