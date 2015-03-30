@@ -13,6 +13,17 @@
 
 Route::get('/', function()
 {
+	return View::make('index');	
+});
 
-	return View::make('index');
+
+Route::post('/', function()
+{
+	if(Input::has('e-add')) {
+		$email = Input::get('e-add');
+		$password = Input::get('pass');
+		return View::make('index')->with('emailPost', $email);
+	}
+
+	
 });
