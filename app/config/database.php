@@ -54,7 +54,7 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+			'host'      => '192.168.0.200',
 			'database'  => 'cinex',
 			'username'  => 'root',
 			'password'  => '',
