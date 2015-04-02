@@ -12,7 +12,8 @@ class CreateReservationsTable extends Migration {
 			$table->integer('entry_id')->nullable();
 			$table->integer('establishment_id')->nullable();
 			$table->integer('cinema_id')->nullable();
-			$table->String('referenceCode',255)->nullable();
+			$table->integer('show_id')->nullable();
+			$table->String('reference_code',255)->nullable();
 			$table->integer('seat_row')->nullable();
 			$table->integer('seat_column')->nullable();
 			$table->timestamps();

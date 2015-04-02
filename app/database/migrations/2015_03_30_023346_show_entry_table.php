@@ -13,7 +13,8 @@ class ShowEntryTable extends Migration {
 			$table->integer('establishment_id')->nullable();
 			$table->integer('cinema_id')->nullable();
 			$table->integer('show_id')->nullable();
-			$table->datetime('timeslot')->nullable();
+			$table->datetime('start_timeslot')->nullable();
+			$table->datetime('end_timeslot')->nullable();
 			$table->timestamps();
 		});
 	}

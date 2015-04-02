@@ -31,14 +31,21 @@
                 <li class="active"><a href="#" class="" style="">Explore</a>
 
                 </li>
+				
                 <li><a href="#" class="">Looks</a>
 
                 </li>
-                <li><a href="#" class="">About</a>
-
+				
+                <li>
+					<a href="#" class="">About</a>
                 </li>
-                <li><a href="#myModal" data-toggle="modal" data-target="#myModal">Sign in</a>
-
+				
+                <li>
+					<a href="#myModal" data-toggle="modal" data-target="#myModal">Sign in</a>
+                </li>
+				
+				<li>
+					<a href="/Register">Register</a>
                 </li>
                 
             </ul>
@@ -46,6 +53,7 @@
         <!--/.nav-collapse -->
     </div>
 </div>
+
 <div class="container">
     <div class="col-md-12">
         <div class="center-block text-center">
@@ -239,20 +247,22 @@
           <h4 class="modal-title">Log In</h4>
         </div>
         <div class="modal-body">
+		  <form method = "POST" action="">
           <div class="form-group">
     		<label for="exampleInputEmail1">Email address</label>
-    		<input class="form-control" id="exampleInputEmail1" placeholder="Enter email" type="email">
+    		<input name = 'e-add' class="form-control" id="exampleInputEmail1" placeholder="Enter email" type="email">
   		  </div>
 		  <div class="form-group">
 		  	<label for="exampleInputPassword1">Password</label>
-			<input class="form-control" id="exampleInputPassword1" placeholder="Password" type="password">
+			<input name = 'pass' class="form-control" id="exampleInputPassword1" placeholder="Password" type="password">
 		  </div>
           <p class="text-right"><a href="#">Forgot password?</a></p>
         </div>
         <div class="modal-footer">
           <a href="#" data-dismiss="modal" class="btn">Close</a>
-          <a href="#" class="btn btn-primary">Log-in</a>
+          <input type="submit" class="btn btn-primary" value="Login">
         </div>
+		</form>
       </div>
     </div>
 </div>

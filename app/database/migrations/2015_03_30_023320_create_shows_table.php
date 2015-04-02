@@ -14,6 +14,7 @@ class CreateShowsTable extends Migration {
 			$table->String('description',255)->nullable();
 			$table->String('video_link',255)->nullable();
 			$table->String('poster',255)->nullable();
+			$table->integer('establishment_id')->nullable();
 			$table->timestamps();
 		});
 	}
