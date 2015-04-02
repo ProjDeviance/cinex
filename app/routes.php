@@ -63,9 +63,8 @@ Route::post('login', array('uses' => 'AuthController@login', 'as'=>'login'));
 
 Route::get('logout', array('uses' => 'AuthController@logout', 'as'=>'logout'));
 
-=======
-	return View::make('index');	
-});
+
+
 
 Route::get('/Register', function()
 {
