@@ -62,6 +62,20 @@
 
 @yield('content')
 
+@yield('modals')
+
+
+<br>
+<br>
+<br>
+
+<!--Pang-inspire magcode-->
+<center><audio src="z.mp3" controls="controls" autoplay="autoplay"></audio></center>
+<!---->
+
+
+<hr>
+<center>Project Deviance 2015</center>
   {{ HTML::script('https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js') }}
   {{ HTML::script('js/bootstrap.min.js') }}
 

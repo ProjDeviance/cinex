@@ -3,57 +3,39 @@
 
 
 @section('title')
-
-<<<<<<< HEAD
-=======
  Login
-
->>>>>>> 938d84a9cdff90bcfa09d4f63501551aa6cc227a
 @stop
 
 
 @section('content')
-<<<<<<< HEAD
+
+
+
 <div class="container">
     
         <div class="container">
             <div class="menu row">
                 <div class="product col-sm-6">
-                  <a href="#"><img class="img-responsive" src="/assets/example/ec_guy.jpg"><i class="btn btn-product fa fa-star"></i></a>
-					<hr>
-                    <h2>About Us</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-                    Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-                    dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-                    Aliquam in felis sit amet augue.</p>
-                    <hr>
-                  	<h2 class="text-right">$39</h2>
-                    <button class="btn btn-primary btn-lg ">Add to Cart</button>
-                    <hr>
-                   
-                    
+                  <img class="img-responsive" src="/logo.png"> ---CiNex Logo--- 
+					         <hr>
+
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#reviews">Reviews</a></li>
-                        <li><a data-toggle="tab" href="#details">Details</a></li>
-                        <li><a data-toggle="tab" href="#sizing">Sizing</a></li>
+                        <li class="active"><a data-toggle="tab" href="#aboutus">About Us</a></li>
+                        <li><a data-toggle="tab" href="#mp">Mobile Payment</a></li>
+                        <li><a data-toggle="tab" href="#geosearch">GeoSearch</a></li>
                     </ul>
-                  
+                    <br>
+
                   	<div class="tab-content">
-                      <div class="tab-pane active" id="reviews">
-                      
-                        <h4>Buyer Reviews</h4>
-                        <ul class="list-unstyled">
-                          <li class="clearfix">(Mike R.) I bought this last month before a.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                          <li class="clearfix">(Karen) The size of this jacket was a little larger.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                          <li class="clearfix">(CAS) I love this jacket. I purchased this as part..  <i class="fa fa-star fa-2x yellow pull-right"></i><i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                          <li class="clearfix">(William D.) Great value with cool style. If you want.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                        </ul>
-                      
+                      <div class="tab-pane active" id="aboutus">
+                      <h4>CinEx</h4>
+                        <p>Want to watch a movie? Don't want to fall in a long line to get your ticket? Don't want to risk using you credit card to buy your ticket online? Then use your cellphone load. That's right, use your Globe network regular load to make your purchase and watch you movie carefree. CinEx - Cinema Express via Text</p>
+                    
                       </div>
-                      <div class="tab-pane" id="details"><h4>Product Information</h4></div>
-                      <div class="tab-pane" id="sizing"><h4>Size Chart</h4></div>
+                      <div class="tab-pane" id="mp"><h4>How to Pay through Mobile?</h4></div>
+                      <div class="tab-pane" id="geosearch"><h4>What is GeoSearch?</h4></div>
                      </div>
-                  
+                  <hr>
                     
                 </div>
                 <div class="col-sm-6">
@@ -116,84 +98,13 @@
 
 </div>
 
-<hr>
 
-<div class="container">
 
-             <div class="row">
-               
-               <div class="col-sm-3">
-                 <a href="#">
-                   <br/>
-                   <img class="img-responsive" src="http://www.bootply.com/assets/example/ec_socks.jpg" data-alt="" data-title="">
-                 </a>
-                 <br>
-                 
-                </div>
-                <div class="col-sm-9">
-                  
-                  <h2><a class="url" href="#"> Gvhfhgc</a></h2>
-                  
-                  <ul class="list-group ticketView">
-                      <li class="list-group-item ticketView">
-                          <span class="label label-default">Color</span>
-                          <label> Oatmeal</label>
-                      </li>
-                      <li class="list-group-item ticketView">
-                          <span class="label label-default">Material</span>
-                          <label> Cotton</label>
-                      </li>  
-                      <li class="list-group-item ticketView">
-                          <span class="label label-default">Sizes</span>
-                          <label> Mens's 5-10, 8-12</label>
-                      </li>
-                      <li class="list-group-item ticketView">
-                          <span class="label label-default">Stock #</span>
-                           N12325
-                      </li>
-                  </ul>
-                  
-                </div><!--/col-->
-            </div><!--/row-->
-           
-            <div class="row">
-               
-               <div class="col-sm-3">
-                 <a href="#">
-                   <br/>
-                   <img class="img-responsive" src="http://www.bootply.com/assets/example/ec_socks.jpg" data-alt="" data-title="">
-                 </a>
-                 <br>
-                 
-                </div>
-                <div class="col-sm-9">
-                  
-                  <h2><a class="url" href="#"> Gegghjks</a></h2>
-                  
-                  <ul class="list-group ticketView">
-                      <li class="list-group-item ticketView">
-                          <span class="label label-default">Color</span>
-                          <label> Oatmeal</label>
-                      </li>
-                      <li class="list-group-item ticketView">
-                          <span class="label label-default">Material</span>
-                          <label> Cotton</label>
-                      </li>  
-                      <li class="list-group-item ticketView">
-                          <span class="label label-default">Sizes</span>
-                          <label> Mens's 5-10, 8-12</label>
-                      </li>
-                      <li class="list-group-item ticketView">
-                          <span class="label label-default">Stock #</span>
-                           N12325
-                      </li>
-                  </ul>
-                  
-                </div><!--/col-->
-            </div><!--/row-->
 
-            <hr>      
-</div><!--/container-->
+
+@stop
+
+@section('modals')
 
 <div class="modal fade" id="myModal">
 	<div class="modal-dialog">
@@ -203,7 +114,7 @@
           <h4 class="modal-title">Log In</h4>
         </div>
         <div class="modal-body">
-		  <form method = "POST" action="">
+		  <form method = "POST" action="/login">
           <div class="form-group">
     		<label for="exampleInputEmail1">Email address</label>
     		<input name = 'e-add' class="form-control" id="exampleInputEmail1" placeholder="Enter email" type="email">
@@ -222,10 +133,6 @@
       </div>
     </div>
 </div>
-=======
-	
-
-
->>>>>>> 938d84a9cdff90bcfa09d4f63501551aa6cc227a
+</div>
 @stop
 

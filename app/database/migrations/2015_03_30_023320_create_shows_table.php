@@ -21,6 +21,6 @@ class CreateShowsTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('establishments');
+		Schema::drop('shows');
 	}
 }
