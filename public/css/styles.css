@@ -44,4 +44,8 @@ body {
  text-shadow:#ccc 1px 1px 0;
 }
 
+td, th {
+ text-align:center;
+}
+
 /* end custom CSS */

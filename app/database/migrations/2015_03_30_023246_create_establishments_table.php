@@ -7,7 +7,7 @@ class CreateEstablishmentsTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('establiments', function(Blueprint $table)
+		Schema::create('establishments', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->String('name',255)->nullable();

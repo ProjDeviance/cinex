@@ -16,9 +16,10 @@ Route::get('/', function()
 	return View::make('index');	
 });
 
-Route::get('/Register', function()
+Route::get('/register', function()
 {
-	return View::make('Register');	
+
+	return View::make('register');	
 });
 Route::post('/', function()
 {
@@ -32,26 +33,62 @@ Route::post('/', function()
 });
 
 //Registration function
-Route::post('/Reg', function()
+Route::post('/register', function()
 {
-	$email = Input::get('eadd');
-	$username = Input::get('uname');
-	$password = Input::get('pass');
-	$cpnumber = Input::get('CellNum');
-	$EsId = Input::get('EsId');
-	
-	$ValidateUser = User::where("email","=","$email")->first();
-	if($email == $ValidateUser)
+
+	$validator = Validator::make(
+	    [
+	        'name' => Input::get('name'),
+	        'email' => Input::get('email'),
+	        'cell_Number' => Input::get('cell_Number'),
+	        'address' => Input::get('address'),
+	        'account_Password' => Input::get('account_Password'),
+	        'account_Password_Repeat' => Input::get('account_Password_Repeat')
+	    ],
+	    [
+	        'name' => "required|min:5|max:50|regex:/^[\w\s]+$/",
+	        'email' => "required|email",
+	        'cell_Number' => "required|min:11|numeric",
+	        'address' => "required|max:100",
+	        'account_Password' => "required|min:6|max:15|same:account_Password_Repeat|regex:/^[\w\-\s]+$/",
+	        'account_Password_Repeat' => "required|min:6|max:15|same:account_Password|regex:/^[\w\-\s]+$/"
+	    ]
+	);
+
+	if($validator->fails())
 	{
-		echo "User already exists!";
+		return Redirect::back()->withInput()->withErrors($validator->messages());
 	}
-	else
-	{
-		User::insert(
-			array('email' => $email, 'password' => $password, 'name' => $username, 'phoneNumber' => $cpnumber,'status' => 0, 'establishment_id' => $EsId )
-		);
-		echo "$email Registered!";
+
+	else if(!User::accountChecker(Input::get('email'))) {
+		return View::make('register', ['error' => 'Email Address has been taken already. Please use a different Email Address.']);
 	}
-	return View::make('index');
+
+	else {
+
+	$establish = new Establishment;
+	$establish->name = Input::get('name');
+	$establish->address = Input::get('address');
+	$establish->longitude = 0;
+	$establish->latitude = 0;
+	$establish->save();
+
+	$insert = new User;
+	$insert->name = Input::get('name');
+	$insert->password = Hash::make(Input::get('account_Password'));
+	$insert->email = Input::get('email');
+	$insert->phoneNumber = Input::get('cell_Number');
+	$insert->status = 1;
+	$insert->user_Type = 0;
+	$insert->establishment_id = Establishment::getEstablishmentID();
+	$insert->save();
+
+	return View::make('register', ['success' => 'Account has been registered!']);
+	}
 });
 
+
+// Admin
+
+Route::get('/manageUsers', 'AdminController@manageUsers');
+Route::post('/manageUsers', 'AdminController@deleteUsers');
