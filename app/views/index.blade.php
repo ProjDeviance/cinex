@@ -4,10 +4,16 @@
 
 @section('title')
 
+<<<<<<< HEAD
+=======
+ Login
+
+>>>>>>> 938d84a9cdff90bcfa09d4f63501551aa6cc227a
 @stop
 
 
 @section('content')
+<<<<<<< HEAD
 <div class="container">
     
         <div class="container">
@@ -216,5 +222,10 @@
       </div>
     </div>
 </div>
+=======
+	
+
+
+>>>>>>> 938d84a9cdff90bcfa09d4f63501551aa6cc227a
 @stop
 
