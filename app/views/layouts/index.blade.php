@@ -27,22 +27,21 @@
         <div class="collapse navbar-collapse" style="">
             <ul class="nav navbar-nav">
               <li class="active">
-                <a href="#" class="" style="">Explore</a>
+                <a href="#" class="" style="">Search</a>
               </li>
+              
+              @if(!Auth::check())
               <li>
-                <a href="#" class="">Looks</a>
+					     <a href="#myModal" data-toggle="modal" data-target="#myModal">Sign in</a>
               </li>
-              <li>
-					      <a href="#" class="">About</a>
-              </li>
-              <li>
-					<a href="#myModal" data-toggle="modal" data-target="#myModal">Sign in</a>
-                </li>
 				
-				<li>
-					<a href="register">Register</a>
-                </li>
+				      <li>
+					     <a href="register">Register</a>
+              </li>
+              @endif
 
+              @if(Auth::check())
+                @if(Auth::user()->user_type==0)
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administrator <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
@@ -51,7 +50,12 @@
                     </li>
                   </ul>
                 </li>
+                @endif
 
+              <li>
+               <a href="/logout">Log Out</a>
+              </li>
+              @endif
                 
             </ul>
         </div>

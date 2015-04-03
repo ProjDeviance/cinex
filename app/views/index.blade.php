@@ -42,15 +42,25 @@
                     <div class="productsrow">
                         
                       <?php
-                      
+                      $shows = Show::groupBy("title")->get();
+
+                      ?>
+                      @foreach($shows as $show)
+                      <?php
+                      $entryCheck  = Entry::where("show_id", $show->id)->count();
+                      if($entryCheck==0)
+                        continue;
+
+                      $showdetail = Show::where("title", $show->title)->first();
                       ?>
                         <div class="product menu-category">
-                            <div class="menu-category-name list-group-item active">Accessories</div>
+                            <div class="menu-category-name list-group-item active">{{$showdetail->title}}</div>
                             <div class="product-image">
-                                <img class="product-image menu-item list-group-item" src="/assets/example/ec_belt.jpg">
-                            </div> <a href="#" class="menu-item list-group-item">Belt<span class="badge">£28</span></a>
+                                <img class="product-image menu-item list-group-item" src="/posters/{{$showdetail->poster}}">
+                            </div> <a href="/list/cinemas/{{$showdetail->id}}" class="menu-item list-group-item"><span class="badge">List Cinemas</span></a>
 
                         </div>
+                        @endforeach
                       
 
 
@@ -82,11 +92,11 @@
 		  <form method = "POST" action="/login">
           <div class="form-group">
     		<label for="exampleInputEmail1">Email address</label>
-    		<input name = 'e-add' class="form-control" id="exampleInputEmail1" placeholder="Enter email" type="email">
+    		<input name = 'email' class="form-control" id="exampleInputEmail1" placeholder="Enter email" type="email">
   		  </div>
 		  <div class="form-group">
 		  	<label for="exampleInputPassword1">Password</label>
-			<input name = 'pass' class="form-control" id="exampleInputPassword1" placeholder="Password" type="password">
+			<input name = 'password' class="form-control" id="exampleInputPassword1" placeholder="Password" type="password">
 		  </div>
           <p class="text-right"><a href="#">Forgot password?</a></p>
         </div>
