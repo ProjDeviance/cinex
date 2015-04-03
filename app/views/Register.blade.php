@@ -10,94 +10,117 @@
 				</div>
 			</div>
 
-			@if(isset($success))
-			<div class="alert alert-success">
-				<i class='fa fa-check'></i> {{ $success }}
-			</div>
-			@elseif(isset($error))
-			<div class="alert alert-danger">
-				<i class='fa fa-exclamation'></i> {{ $error }}
-			</div>
-			@endif
-
 			<div class='panel panel-default'>
 	            <div class='panel-heading'>
 	            	<i class='fa fa-edit'></i> Register Form
 	            </div>
 				<div class='panel-body'>
-                    {{ Form::open(array('method' => 'POST', 'url' => 'register', 'class' => 'registerAccount form-horizontal')) }}
-						<!--Account Name-->
-						<div class="form-group">
-							<div class="col-lg-3 col-md-offset-1">
-								{{ Form::label('name_Label', 'Full Name: ') }}
-							</div>
-							<div class="col-lg-6">
-								{{ Form::text('name', null, ['class' => 'name validatorRegister form-control', 'required' => '', 'placeholder' => 'Account Profile (minimum of 5 characters, maximum of 50)', 'autocomplete' => 'off']) }}
-								<p class='text text-danger'>{{ $errors->first('name') }}</p>
-							</div>
-						</div>
+                     {{ Form::open(array('class' => 'registerAccount form-horizontal', 'role' => 'form')) }}
 
-						<!--Account Email-->
-						<div class="form-group">
-							<div class="col-lg-3 col-md-offset-1">
-								{{ Form::label('email_Label', 'Email: ') }}
-							</div>
-							<div class="col-lg-6">
-								{{ Form::text('email', null, ['class' => 'email validatorRegister form-control', 'required' => '', 'placeholder' => "Valid Email Address (must contain '@')", 'autocomplete' => 'off', 'type' => 'email']) }}
-								<p class='text text-danger'>{{ $errors->first('email') }}</p>
-							</div>
-						</div>	
+   
+    	<div class="form-group @if ($errors->has('name')) has-error @endif">
+         	<div class="col-lg-3 col-md-offset-1">
+				{{ Form::label('name_Label', 'Full Name: ') }}
+			</div>
+			<div class="col-lg-6">
+                {{ Form::text('name', Session::get('name'), array('class' => 'form-control', 'placeholder' => 'Name','maxlength'=>'255')) }}
+       
+                @if ($errors->has('name')) 
+                    <p class="help-block">{{ $errors->first('name') }}</p> 
+                @endif
+            </div>
+        </div>
 
-						<!--Account Number-->
-						<div class="form-group">
-							<div class="col-lg-3 col-md-offset-1">
-								{{ Form::label('cell_Label', 'Cell Number (#): ') }}
-							</div>
-							<div class="col-lg-6">
-								{{ Form::text('cell_Number', null, ['class' => 'cell_Number validatorRegister form-control', 'required' => '', 'placeholder' => "Cellphone Number (must contain 11 digits)", 'autocomplete' => 'off', 'type' => 'email']) }}
-								<p class='text text-danger'>{{ $errors->first('cell_Number') }}</p>
-							</div>
-						</div>
-
-						<!--Account Address-->
-						<div class="form-group">
-							<div class="col-lg-3 col-md-offset-1">
-								{{ Form::label('address_Label', 'Address: ') }}
-							</div>
-							<div class="col-lg-6">
-								{{ Form::textarea('address', null, ['class' => 'address validatorRegister form-control', 'required' => '', 'size' => '30x4', 'placeholder' => 'Residence Address (maximum of 100 characters)', 'autocomplete' => 'off', 'style' => 'resize:none']) }}
-								<p class='text text-danger'>{{ $errors->first('description') }}</p>
-							</div>
-						</div>
-
-						<!--Account Password-->
-						<div class="form-group">
-							<div class="col-lg-3 col-md-offset-1">
-								{{ Form::label('password_Label', 'Password: ') }}
-							</div>
-							<div class="col-lg-6">
-								{{ Form::password('account_Password', ['class' => 'account_Password validatorRegister form-control', 'required' => '', 'placeholder' => 'Account Password (minimum of 6 characters, maximum of 15)', 'autocomplete' => 'off']) }}
-								<p class='text text-danger'>{{ $errors->first('account_Password') }}</p>
-							</div>
-						</div>
-
-						<!--Account Password Repeat-->
-						<div class="form-group">
-							<div class="col-lg-3 col-md-offset-1">
-								{{ Form::label('account_Password_Label_Repeat', 'Re-type Password: ') }}
-							</div>
-							<div class="col-lg-6">
-								{{ Form::password('account_Password_Repeat', ['class' => 'account_Password_Repeat validatorRegister form-control', 'required' => '', 'placeholder' => 'Re-type Password', 'autocomplete' => 'off']) }}
-								<p class='text text-danger'>{{ $errors->first('account_Password_Repeat') }}</p>
-							</div>
-						</div>
-
-						<!--Submit-->
-						<div class="form-group">
-							<div class="col-lg-7 col-md-offset-4">
-			                    {{ Form::submit('Register Account', ['class' => 'btn btn-default btn-primary']) }}
-			                    {{ Form::close() }}
-			                    <h5 class="alerts"> </h5>
+        <div class="form-group @if ($errors->has('password')) has-error @endif">
+       		<div class="col-lg-3 col-md-offset-1">
+				{{ Form::label('password_Label', 'Password: ') }}
+			</div>
+			<div class="col-lg-6">
+                <input name="password" type="password" class="form-control" placeholder="Password" maxlength="255">
+           
+                @if ($errors->has('password')) 
+                    <p class="help-block">{{ $errors->first('password') }}</p> 
+                @endif
+            </div>
+        </div>
+      
+        <div class="form-group @if ($errors->has('password')) has-error @endif">
+          	<div class="col-lg-3 col-md-offset-1">
+				{{ Form::label('password_confirmation_Label', 'Confirm Password: ') }}
+			</div>
+			<div class="col-lg-6">
+                <input name="password_confirmation" type="password" class="form-control" placeholder="Retype Password" maxlength="255">
+            </div>       
+        </div>
+       
+        <div class="form-group @if ($errors->has('email')) has-error @endif">
+         	<div class="col-lg-3 col-md-offset-1">
+				{{ Form::label('email_Label', 'Email: ') }}
+			</div>
+			<div class="col-lg-6">
+                {{ Form::email('email', Session::get('email'), array('class' => 'form-control', 'placeholder' => 'Email','maxlength'=>'255')) }}
+       
+                @if ($errors->has('email')) 
+                    <p class="help-block">{{ $errors->first('email') }}</p> 
+                @endif
+             </div>
+        </div>
+        <div class="form-group @if ($errors->has('contact_number')) has-error @endif">
+         	<div class="col-lg-3 col-md-offset-1">
+				{{ Form::label('contact_number_label', 'Contact Number: ') }}
+			</div>
+			<div class="col-lg-6">
+                {{ Form::text('contact_number', Session::get('contact_number'), array('class' => 'form-control', 'placeholder' => 'Contact Number','maxlength'=>'255')) }}
+       
+                @if ($errors->has('contact_number')) 
+                    <p class="help-block">{{ $errors->first('contact_number') }}</p> 
+                @endif
+            </div>
+        </div>
+		<div class="form-group @if ($errors->has('establishment_name')) has-error @endif">
+         	<div class="col-lg-3 col-md-offset-1">
+				{{ Form::label('establishment_name_Label', 'Establishment Name: ') }}
+			</div>
+			<div class="col-lg-6">
+                {{ Form::text('establishment_name', Session::get('establishment_name'), array('class' => 'form-control', 'placeholder' => 'Establishment Name','maxlength'=>'255')) }}
+       
+                @if ($errors->has('establishment_name')) 
+                    <p class="help-block">{{ $errors->first('establishment_name') }}</p> 
+                @endif
+            </div>
+        </div>
+        <div class="form-group @if ($errors->has('address')) has-error @endif">
+         	<div class="col-lg-3 col-md-offset-1">
+				{{ Form::label('address_label', 'Establishment Address: ') }}
+			</div>
+			<div class="col-lg-6">
+                {{ Form::text('address', Session::get('address'), array('class' => 'form-control', 'placeholder' => 'Establishment Address','maxlength'=>'255')) }}
+       
+                @if ($errors->has('address')) 
+                    <p class="help-block">{{ $errors->first('address') }}</p> 
+                @endif
+            </div>
+        </div>
+		<div class="form-group">
+			<div class="col-lg-7 col-md-offset-4">
+			    {{ Form::submit('Register Account', ['class' => 'btn btn-default btn-primary']) }}
+			    {{ Form::close() }}
+			                <h5 class="alerts"> </h5>
+			</div>
+		</div>
+		           
+		           
+	  	
+		        
+	
+		     	 
+			                     <hr>
+		            <div align="center">
+		                Already have an account?<br/>
+		                <a class="" href="/login">
+		                    Login Existing Account
+		                </a>
+		            </div>
 							</div>
 						</div>
                     </div>

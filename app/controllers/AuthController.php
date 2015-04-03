@@ -43,12 +43,14 @@ class AuthController extends BaseController {
 
   public function register()
   {
-    $rules = array(
-      'username'    => 'required|alphaNum|min:3|max:20|unique:users', 
+    $rules = array( 
       'password'    => 'required|min:3|max:20|confirmed',
       'password_confirmation'    => 'required',
       'email'    => 'required|email|min:3|max:100|unique:users',
       'name'    => 'required|min:3|max:100',
+      'contact_number'    => 'required|numeric',
+      'establishment_name'    => 'required|min:3|max:100',
+      'address'    => 'required|min:10|max:100',
     );
     $validator = Validator::make(Input::all(), $rules);
 
@@ -61,20 +63,18 @@ class AuthController extends BaseController {
     } 
     else {
  
-
-  
       $user = new User;
-        $user->name = strip_tags(Input::get('name'));
-        $user->username = strip_tags(Input::get('username'));
-        $user->email = strip_tags(Input::get('email'));
-        $user->password = strip_tags(Hash::make(Input::get('password')));
+      $user->name = strip_tags(Input::get('name'));
+      $user->contact_number= strip_tags(Input::get('contact_number'));
+      $user->email = strip_tags(Input::get('email'));
+      $user->password = strip_tags(Hash::make(Input::get('password')));
+      $user->save();
 
-
-      $defaultMemberType = MemberType::orderBy('borrow_limit', 'ASC')->first();
-        $user->member_type_id = strip_tags($defaultMemberType->id);
-        $user->save();
-
-        
+      $establishment = new Establishment;
+      $establishment->establishment_name = strip_tags(Input::get('establishment_name'));
+      $establishment->address = strip_tags(Input::get('address'));
+      $establishment->latitude = 0;
+      $establishment->longitude = 0;
 
       
         Session::put('msgsuccess', 'You have successfully registered.');

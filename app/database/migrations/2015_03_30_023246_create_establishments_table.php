@@ -10,7 +10,7 @@ class CreateEstablishmentsTable extends Migration {
 		Schema::create('establishments', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->String('name',255)->nullable();
+			$table->String('establishment_name',255)->nullable();
 			$table->String('address',255)->nullable();
 			$table->double('longitude', 15,9)->nullable();
 			$table->double('latitude', 15,9)->nullable();

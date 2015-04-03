@@ -88,9 +88,7 @@
 <br>
 <br>
 
-<!--Pang-inspire magcode-->
-<center><audio src="z.mp3" controls="controls" autoplay="autoplay"></audio></center>
-<!---->
+
 
 
 <hr>
