@@ -58,7 +58,22 @@
         <!--/.nav-collapse -->
     </div>
 </div>
-
+<div class="container">
+  @if(Session::get('msgsuccess'))
+      <div class="alert alert-success fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <center>{{ Session::get('msgsuccess') }}</center>
+      </div>
+      {{ Session::forget('msgsuccess') }}
+    @endif
+    @if(Session::get('msgfail'))
+      <div class="alert alert-danger fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <center>{{ Session::get('msgfail') }}</center>
+      </div>
+      {{ Session::forget('msgfail') }}
+    @endif
+</div>
 
 @yield('content')
 

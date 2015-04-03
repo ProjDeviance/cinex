@@ -40,6 +40,10 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="productsrow">
+                        
+                      <?php
+                      
+                      ?>
                         <div class="product menu-category">
                             <div class="menu-category-name list-group-item active">Accessories</div>
                             <div class="product-image">
@@ -47,48 +51,9 @@
                             </div> <a href="#" class="menu-item list-group-item">Belt<span class="badge">£28</span></a>
 
                         </div>
-                        <div class="product menu-category">
-                            <div class="menu-category-name list-group-item active">Jeans</div>
-                            <div class="product-image">
-                                <img class="product-image menu-item list-group-item" src="/assets/example/ec_jeans.jpg">
-                            </div> <a href="#" class="menu-item list-group-item">Dark Blue Jeans<span class="badge">$80</span></a>
+                      
 
-                        </div>
-                        <div class="product menu-category">
-                            <div class="menu-category-name list-group-item active">Pants</div>
-                            <div class="product-image">
-                                <img class="product-image menu-item list-group-item" src="/assets/example/ec_pants.jpg">
-                            </div> <a href="#" class="menu-item list-group-item">Light Grean Chinos<span class="badge">$59</span></a>
 
-                        </div>
-                        <div class="product menu-category">
-                            <div class="menu-category-name list-group-item active">Denim</div>
-                            <div class="div-image">
-                                <img class="product-image menu-item list-group-item" src="/assets/example/ec_jacket.jpg">
-                            </div> <a href="#" class="menu-item list-group-item">Denim Jacket<span class="badge">$56</span></a>
-
-                        </div>
-                        <div class="product menu-category">
-                            <div class="menu-category-name list-group-item active">Accessories</div>
-                            <div class="product-image">
-                                <img class="product-image menu-item list-group-item" src="/assets/example/ec_socks.jpg">
-                            </div> <a href="#" class="menu-item list-group-item">Socks<span class="badge">$56</span></a>
-
-                        </div>
-                        <div class="product menu-category">
-                            <div class="menu-category-name list-group-item active">Belt</div>
-                            <div class="product-image">
-                                <img class="product-image menu-item list-group-item" src="/assets/example/ec_belt.jpg">
-                            </div> <a href="#" class="menu-item list-group-item">Brown Belt<span class="badge">£18</span></a>
-
-                        </div>
-                        <div class="product menu-category">
-                            <div class="menu-category-name list-group-item active">Layer</div>
-                            <div class="product-image">
-                                <img class="product-image menu-item list-group-item" src="/assets/example/ec_sweater.jpg">
-                            </div> <a href="#" class="menu-item list-group-item">Shawl Neck<span class="badge">46</span></a>
-
-                        </div>
                     </div>
                 </div>
             </div>

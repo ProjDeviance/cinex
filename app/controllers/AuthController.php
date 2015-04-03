@@ -14,7 +14,7 @@ class AuthController extends BaseController {
   public function login()
   {
     $userdata = array(
-            'username' => Input::get('username'),
+            'email' => Input::get('email'),
             'password' => Input::get('password')
         );
 
@@ -24,15 +24,15 @@ class AuthController extends BaseController {
       if($checkUser->status==0)
       {
         Auth::logout();
-        return Redirect::back()->withInput(Input::except('password'))->with( 'msgfail' , 'You account is not activated. Please contact a library personel to activate your account.' );
+        return Redirect::back()->withInput(Input::except('password'))->with( 'msgfail' , 'You account is not activated.' );
       }
-      if($checkUser->type == 2)
+      if($checkUser->user_type == 1)
       {
-        Auth::logout();
-        return Redirect::back()->withInput(Input::except('password'))->with( 'msgfail' , 'Invalid credentials.' );
+        
+         return Redirect::to('/admin')->with( 'msgsuccess' , 'You have logged in successfully.');
       }
 
-      return Redirect::to('/home')->with( 'msgsuccess' , 'You have logged in successfully.');
+      return Redirect::to('/manager')->with( 'msgsuccess' , 'You have logged in successfully.');
 
     }
 
