@@ -94,35 +94,15 @@ Route::filter('csrf', function()
 
 
 //Administrative Filter
-
 Route::filter('admin', function()
 {
-//MAC Security
-
-//Simple & effective way to get client mac address
-// Turn on output buffering
-ob_start();
-//Get the ipconfig details using system commond
-system('ipconfig /all');
-
-// Capture the output into a variable
-    $mycom=ob_get_contents();
-// Clean (erase) the output buffer
-    ob_clean();
-
-$findme = "Physical";
-//Search the "Physical" | Find the position of Physical text
-$pmac = strpos($mycom, $findme);
-
-// Get Physical Address
-$mac=substr($mycom,($pmac+36),17);
-//Display Mac Address
-
-
-$adminMac = array("EE-AF-78-4A-95-1B");
-
-    if (!in_array($mac, $adminMac))
-    {
-        return Redirect::to('/');
-    }
+	if(!Auth::check())
+    	return Redirect::to("/login");
+	
+	if(Auth::user()->member_type_id!=0)
+	{
+		Session::put('msgfail', 'Unauthorized access denied.');
+		
+		return Redirect::to("/");
+	}
 });

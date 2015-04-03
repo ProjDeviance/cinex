@@ -5,38 +5,76 @@ class AdminController extends BaseController {
 
 	public function manageUsers()
 	{
-		$displayUsers = User::join('establiments', 'establiments.id', '=', 'users.establishment_id')->get();
-		return View::make('admin.manageUsers', ['displayUsers' => $displayUsers]);
-	}
 
-	public function deleteUsers()
+    if(!Auth::check())
+    	return Redirect::to("/login");
+	else
 	{
-		if(Request::ajax()) {
+		if(Auth::user()->user_type==1)
+		{
 
-			if(Input::has('delete_ID')) {
-				$id = Input::get('delete_ID');
-
-				if(User::deleteUsers($id)) {
-					return Response::json(['success' => true]);
-				}
-				else {
-					return Response::json(['success' => false]);
-				}
-			}
-
-			else if(Input::has('update_ID')) {
-				$id = Input::get('update_ID');
-				$status = Input::get('status');
-				
-				if(User::updateUsers($id, $status)) {
-					return Response::json(['success' => true]);
-				}
-				else {
-					return Response::json(['success' => false]);
-				}
-			}
-			
+			$displayUsers =  DB::table('users')->where('user_type', 0)->paginate(10);
+		
+			return View::make('admin.manageUsers', ['displayUsers' => $displayUsers]);
 		}
+		else
+			return View::make('manager.index');
 	}
+		
+	}
+
+	
+
+
+  public function deactivate($id)
+  {
+
+       $exist = User::where('id', $id)->count();
+
+      if($exist == 0)
+      { 
+         Session::put('msgfail', 'Fail to find user.');
+         return Redirect::back()->withInput();
+      }
+
+        $user = User::find($id);
+      
+        $user->status = 0;
+
+        $user->save();
+
+      
+        Session::put('msgsuccess', 'Successfully deactivated user.');
+       
+        return Redirect::to("/admin");
+
+    
+  }
+
+
+  public function activate($id)
+  {
+
+       $exist = User::where('id', $id)->count();
+
+      if($exist == 0)
+      { 
+         Session::put('msgfail', 'Fail to find user.');
+         return Redirect::back()->withInput();
+      }
+
+        $user = User::find($id);
+      
+        $user->status = 1;
+
+        $user->save();
+
+      
+        Session::put('msgsuccess', 'Successfully activated user.');
+       
+        return Redirect::to("/admin");
+
+    
+  }
 
 }

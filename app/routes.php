@@ -13,9 +13,9 @@ Route::get('/', function()
 	else
 	{
 		if(Auth::user()->user_type==0)
-			return View::make('manager.index');
+			return Redirect::to("/manager");
 		else
-			return View::make('admin.index');
+			return Redirect::to("/admin");
 	}
 });
 
@@ -46,6 +46,7 @@ Route::get('logout', array('uses' => 'AuthController@logout', 'as'=>'logout'));
 
 Route::group(['prefix' => 'manager'],  function() 
 {	
+
 	Route::get('/', function()
 	{
 
@@ -63,27 +64,12 @@ Route::group(['prefix' => 'manager'],  function()
 
 Route::group(['prefix' => 'admin'],  function() 
 {	
-	Route::get('/', function()
-	{
+	Route::get('/', 'AdminController@manageUsers');
+	Route::get('/activate/{id}', array('uses' => 'AdminController@activate'))->before('admin');
+	Route::get('/deactivate/{id}', array('uses' => 'AdminController@deactivate'))->before('admin');
 
-    if(!Auth::check())
-    	return Redirect::to("/login");
-	else
-	{
-		if(Auth::user()->user_type==1)
-			return View::make('admin.index');
-		else
-			return View::make('manager.index');
-	}
-	});
+
 });
 // End of Organized Code
 
-
-
-
-// Admin
-
-Route::get('/manageUsers', 'AdminController@manageUsers');
-Route::post('/manageUsers', 'AdminController@deleteUsers');
 

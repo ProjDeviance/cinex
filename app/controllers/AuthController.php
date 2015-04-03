@@ -68,6 +68,7 @@ class AuthController extends BaseController {
       $user->contact_number= strip_tags(Input::get('contact_number'));
       $user->email = strip_tags(Input::get('email'));
       $user->password = strip_tags(Hash::make(Input::get('password')));
+      $user->user_type = 0;
       $user->save();
 
       $establishment = new Establishment;
@@ -75,6 +76,11 @@ class AuthController extends BaseController {
       $establishment->address = strip_tags(Input::get('address'));
       $establishment->latitude = 0;
       $establishment->longitude = 0;
+      $establishment->save();
+
+      $userUpdate = User::find($user->id);
+      $userUpdate->establishment_id = $establishment->id;
+      $userUpdate->save();
 
       
         Session::put('msgsuccess', 'You have successfully registered.');

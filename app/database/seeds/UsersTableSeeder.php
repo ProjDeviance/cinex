@@ -9,7 +9,7 @@ class UsersTableSeeder extends Seeder {
 			'password' => Hash::make("superadmin"),
 			'status' => 1,
 			'name' => 'superadmin',
-			'user_type' => 0,
+			'user_type' => 1,
 			]);
 	}
 }
