@@ -60,6 +60,47 @@ Route::group(['prefix' => 'manager'],  function()
 			return View::make('admin.index');
 	}
 	});
+
+
+	//Cinema
+	Route::get('/cinemas/edit/{id}', function($id)
+	{
+
+    if(!Auth::check())
+    	return Redirect::to("/login");
+	else
+	{
+		Session::put('management', 1);
+		 $exist = Cinema::where('id', $id)->count();
+
+    	if($exist == 0)
+    	{
+      	Session::put('msgfail', 'Failed to edit cinema.');
+      	return Redirect::back()
+        ->withInput(); 
+    	}
+
+		$cinema = Cinema::find($id);
+		return View::make('manager.edit_cinema')->with('cinema', $cinema);
+	}
+	})->before('manager');
+	Route::post('/cinemas/edit/{id}', array('uses' => 'CinemaController@edit'))->before('manager');
+	Route::get('/cinemas', function()
+	{
+    if(!Auth::check())
+    	return Redirect::to("/");
+	else
+	{
+		Session::put('management', 1);
+		$cinemas = DB::table('cinemas')
+	            ->paginate(10);
+	
+		return View::make('manager.cinemas')->with('cinemas', $cinemas);
+	}
+	})->before('manager');
+	Route::post('cinemas', array('uses' => 'CinemaController@add', 'as'=>'cinemas'))->before('manager');
+	Route::get('/cinemas/delete/{id}', array('uses' => 'CinemaController@delete'))->before('manager');
+	//End Cinema
 });
 
 Route::group(['prefix' => 'admin'],  function() 

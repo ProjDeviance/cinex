@@ -97,9 +97,22 @@ Route::filter('csrf', function()
 Route::filter('admin', function()
 {
 	if(!Auth::check())
-    	return Redirect::to("/login");
+    	return Redirect::to("/");
 	
-	if(Auth::user()->member_type_id!=0)
+	if(Auth::user()->user_type!=1)
+	{
+		Session::put('msgfail', 'Unauthorized access denied.');
+		
+		return Redirect::to("/");
+	}
+});
+//Administrative Filter
+Route::filter('manager', function()
+{
+	if(!Auth::check())
+    	return Redirect::to("/");
+	
+	if(Auth::user()->user_type!=0)
 	{
 		Session::put('msgfail', 'Unauthorized access denied.');
 		

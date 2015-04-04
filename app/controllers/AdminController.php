@@ -23,9 +23,6 @@ class AdminController extends BaseController {
 		
 	}
 
-	
-
-
   public function deactivate($id)
   {
 
