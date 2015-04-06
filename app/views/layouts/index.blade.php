@@ -42,7 +42,12 @@
 
               @if(Auth::check())
                 @if(Auth::user()->user_type==0)
-                
+                <li>
+                  {{ HTML::link('manager/cinemas', 'Cinemas') }}
+                </li>
+                <li>
+                  {{ HTML::link('manager/showsentries', 'Shows & Entries') }}
+                </li>
                 @endif
 
               <li>

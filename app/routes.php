@@ -61,6 +61,11 @@ Route::group(['prefix' => 'manager'],  function()
 	}
 	});
 
+	//Show & Entries
+	Route::get('/showsentries', 'ShowEntriesController@displayShowEntries');
+	Route::post('/showsentries', 'ShowEntriesController@addShow');
+	Route::get('/showsentries/edit/{id}', 'ShowEntriesController@editShow');
+	Route::post('/showsentries/edit/{id}', 'ShowEntriesController@editShowPost'); 
 
 	//Cinema
 	Route::get('/cinemas/edit/{id}', function($id)
@@ -111,6 +116,7 @@ Route::group(['prefix' => 'admin'],  function()
 
 
 });
+
 // End of Organized Code
 
 
