@@ -32,7 +32,7 @@ class AuthController extends BaseController {
          return Redirect::to('/admin')->with( 'msgsuccess' , 'You have logged in successfully.');
       }
 
-      return Redirect::to('/manager')->with( 'msgsuccess' , 'You have logged in successfully.');
+      return Redirect::to('/manager/cinemas')->with( 'msgsuccess' , 'You have logged in successfully.');
 
     }
 

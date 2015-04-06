@@ -9,8 +9,8 @@ class CinemaController extends BaseController {
   {
     $rules = array(
       'name'    => 'required|min:1|max:50', 
-      'seat_rows'    => 'required|numeric',
-      'seat_columns'    => 'required|numeric',
+      'seat_rows'    => 'required|numeric|min:1',
+      'seat_columns'    => 'required|numeric|min:1',
     );
     $validator = Validator::make(Input::all(), $rules);
 
@@ -51,8 +51,8 @@ class CinemaController extends BaseController {
 
     $rules = array(
       'name'    => 'required|min:1|max:50', 
-      'seat_rows'    => 'required|numeric',
-      'seat_columns'    => 'required|numeric',
+      'seat_rows'    => 'required|numeric|min:1',
+      'seat_columns'    => 'required|numeric|min:1',
     );
     $validator = Validator::make(Input::all(), $rules);
 

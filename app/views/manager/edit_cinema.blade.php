@@ -56,7 +56,7 @@
 			<div class="col-lg-6">
                 {{ Form::number('seat_columns', $cinema->seat_columns, array('class' => 'form-control  ', 'placeholder' => 'Seats (No. of Columns)','maxlength'=>'255')) }}
            
-            @if ($errors->has('seat_columns'));
+            @if ($errors->has('seat_columns'))
                 <p class="help-block">{{ $errors->first('seat_columns') }}</p>  
             @endif
         	</div>
