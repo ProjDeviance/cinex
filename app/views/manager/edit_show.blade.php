@@ -13,12 +13,12 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Edit Shows & Entries
+						Edit Show
 					</div>
 					<div class="panel-body">
 						<!--Title-->
 						@foreach($displayEditShows as $displayEditShow)
-						{{ Form::open(['type' => 'POST', 'url' => 'manager/showsentries/edit/'.$displayEditShow->id, 'class' => 'form-horizontal']) }}
+						{{ Form::open(['type' => 'POST', 'url' => 'manager/shows/edit/'.$displayEditShow->id, 'class' => 'form-horizontal']) }}
 				        <div class="form-group">
 				          	<div class="col-lg-3 col-md-offset-1">
 								{{ Form::label('title_Label', 'Show Title: ') }}

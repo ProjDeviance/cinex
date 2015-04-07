@@ -48,4 +48,14 @@ td, th {
  text-align:center;
 }
 
+.modal-body {
+  word-wrap: break-word;
+}
+td {
+ max-width: 100px;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+
 /* end custom CSS */

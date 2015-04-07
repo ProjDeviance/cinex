@@ -62,10 +62,10 @@ Route::group(['prefix' => 'manager'],  function()
 	});
 
 	//Show & Entries
-	Route::get('/showsentries', 'ShowEntriesController@displayShowEntries');
-	Route::post('/showsentries', 'ShowEntriesController@addShow');
-	Route::get('/showsentries/edit/{id}', 'ShowEntriesController@editShow');
-	Route::post('/showsentries/edit/{id}', 'ShowEntriesController@editShowPost'); 
+	Route::get('/shows', 'ShowEntriesController@displayShowEntries');
+	Route::post('/shows', 'ShowEntriesController@addShow');
+	Route::get('/shows/edit/{id}', 'ShowEntriesController@editShow');
+	Route::post('/shows/edit/{id}', 'ShowEntriesController@editShowPost'); 
 
 	//Cinema
 	Route::get('/cinemas/edit/{id}', function($id)

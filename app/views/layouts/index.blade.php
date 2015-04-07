@@ -7,10 +7,12 @@
 		<title>CinEx</title>
 		<meta name="generator" content="Bootply" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') }}
+    {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/styles.css') }}
-
+    {{ HTML::style('css/bootstrap-datetimepicker.css') }}
+    <style>
+    </style>
 	</head>
 	<body>
 <!--template-->
@@ -46,7 +48,7 @@
                   {{ HTML::link('manager/cinemas', 'Cinemas') }}
                 </li>
                 <li>
-                  {{ HTML::link('manager/showsentries', 'Shows & Entries') }}
+                  {{ HTML::link('manager/shows', 'Shows & Entries') }}
                 </li>
                 @endif
 
@@ -121,7 +123,10 @@
 <center>Project Deviance 2015</center>
   {{ HTML::script('https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js') }}
   {{ HTML::script('js/bootstrap.min.js') }}
-
+  {{ HTML::script('js/bootstrap-datetimepicker.js') }}
+  <script>
+    $('.datetimepicker').datetimepicker();
+  </script>
   @yield('javascripts')
 
 	</body>
