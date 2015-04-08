@@ -61,11 +61,18 @@ Route::group(['prefix' => 'manager'],  function()
 	}
 	});
 
-	//Show & Entries
-	Route::get('/shows', 'ShowEntriesController@displayShowEntries');
-	Route::post('/shows', 'ShowEntriesController@addShow');
-	Route::get('/shows/edit/{id}', 'ShowEntriesController@editShow');
-	Route::post('/shows/edit/{id}', 'ShowEntriesController@editShowPost'); 
+	Route::group(array('before' => 'auth'), function(){
+		//Show & Entries
+		Route::get('/shows', 'ShowEntriesController@displayShowEntries');
+		Route::post('/shows', 'ShowEntriesController@addShow');
+		Route::get('/shows/edit/{id}', 'ShowEntriesController@editShow');
+		Route::post('/shows/edit/{id}', 'ShowEntriesController@editShowPost');
+
+		Route::get('/entries', 'ShowEntriesController@displayEntriesOnly');
+		Route::post('/entries', 'ShowEntriesController@deleteEntry');
+		Route::get('/entries/edit/{id}', 'ShowEntriesController@editEntry');
+		Route::post('/entries/edit/{id}', 'ShowEntriesController@editEntryPost');
+	});
 
 	//Cinema
 	Route::get('/cinemas/edit/{id}', function($id)

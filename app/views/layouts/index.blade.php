@@ -47,8 +47,16 @@
                 <li>
                   {{ HTML::link('manager/cinemas', 'Cinemas') }}
                 </li>
-                <li>
-                  {{ HTML::link('manager/shows', 'Shows & Entries') }}
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Shows & Entries<span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                      <a href="{{ URL::to('manager/shows') }}"><i class='fa fa-film'></i> Manage Shows</a>
+                      </li>
+                    <li>
+                      <a href="{{ URL::to('manager/entries') }}"><i class='fa fa-level-down'></i> Manage Entries</a>
+                      </li>
+                  </ul>
                 </li>
                 @endif
 

@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('title')
-    Show & Entries Management
+
 @stop
 
 @section('content')
