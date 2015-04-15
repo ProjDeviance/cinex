@@ -106,13 +106,13 @@ class ShowEntriesController extends BaseController {
               'title' => Input::get('title'),
               'description' => Input::get('description'),
               'video_link' => Input::get('video_link'),
-              'poster_link' => Input::get('poster_link')
+              'poster' => Input::file('poster')
           ],
           [
               'title' => "required|min:1|max:50",
               'description' => "required|min:15|max:1500",
               'video_link' => "required",
-              'poster_link' => "required"
+              'poster' => "required"
           ]
       );
 
@@ -122,14 +122,20 @@ class ShowEntriesController extends BaseController {
       }
       else
       {
-        $insertShow = new Show;
-        $insertShow->title = strip_tags(Input::get('title'));
-        $insertShow->description= strip_tags(Input::get('description'));
-        $insertShow->video_link = strip_tags(Input::get('video_link'));
-        $insertShow->poster = strip_tags(Input::get('poster_link'));
-        $insertShow->establishment_id = Auth::user()->establishment_id;
-        $insertShow->save();
+        if (Input::hasFile('poster'))
+        {
+          $file = Input::file('poster');
+          $file->move('public/upload', $file->getClientOriginalName());
 
+          $insertShow = new Show;
+          $insertShow->title = strip_tags(Input::get('title'));
+          $insertShow->description= strip_tags(Input::get('description'));
+          $insertShow->video_link = strip_tags(Input::get('video_link'));
+          $insertShow->poster = "../upload/" . $file->getClientOriginalName();
+          $insertShow->establishment_id = Auth::user()->establishment_id;
+          $insertShow->save();
+
+        }
         $displayTitle = Input::get('title');
         Session::put('success', "Show <b>'".$displayTitle."'</b> has been added.");  
       }
@@ -195,13 +201,13 @@ class ShowEntriesController extends BaseController {
             'title' => Input::get('title'),
             'description' => Input::get('description'),
             'video_link' => Input::get('video_link'),
-            'poster_link' => Input::get('poster_link')
+            'poster' => Input::file('poster')
         ],
         [
             'title' => "required|min:1|max:50",
             'description' => "required|min:15|max:250",
             'video_link' => "required",
-            'poster_link' => "required"
+            'poster' => "required"
         ]
     );
     if($validator->fails())
@@ -210,11 +216,18 @@ class ShowEntriesController extends BaseController {
     }
     else
     {
+
+      if (Input::hasFile('poster'))
+      {
+        $file = Input::file('poster');
+        $file->move('public/upload', $file->getClientOriginalName());
+      }
+
       $updateShow = [
         'title' => strip_tags(Input::get('title')),
         'description' => strip_tags(Input::get('description')),
         'video_link' => strip_tags(Input::get('video_link')),
-        'poster' => strip_tags(Input::get('poster_link'))
+        'poster' => "../upload/" . $file->getClientOriginalName()
       ];
 
       Show::where('id', $id)->update($updateShow);

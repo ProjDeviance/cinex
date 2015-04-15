@@ -18,7 +18,7 @@
 					<div class="panel-body">
 						<!--Title-->
 						@foreach($displayEditShows as $displayEditShow)
-						{{ Form::open(['type' => 'POST', 'url' => 'manager/shows/edit/'.$displayEditShow->id, 'class' => 'form-horizontal']) }}
+						{{ Form::open(['type' => 'POST', 'url' => 'manager/shows/edit/'.$displayEditShow->id, 'class' => 'form-horizontal', 'files' => true]) }}
 				        <div class="form-group">
 				          	<div class="col-lg-3 col-md-offset-1">
 								{{ Form::label('title_Label', 'Show Title: ') }}
@@ -51,11 +51,14 @@
 				        <!--Poster Link-->
 				        <div class="form-group">
 				      		<div class="col-lg-3 col-md-offset-1">
-								{{ Form::label('posterlink_Label', 'Poster Link: ') }}
+								{{ Form::label('poster_Label', 'Poster Image: ') }}
 							</div>
 							<div class="col-lg-6">
-				                {{ Form::url('poster_link', $displayEditShow->poster, ['class' => 'form-control ', 'placeholder' => 'Poster Link (valid URL)']) }}
-				                <p class='text text-danger'>{{ $errors->first('poster_link') }}</p>
+								<!--
+				                {{ Form::url('poster_link', null, ['class' => 'form-control ', 'placeholder' => 'Poster Link (valid URL)']) }}
+				                -->
+				                {{ Form::file('poster', ['class' => 'form-control', 'accept' => 'image/*', 'value' => $displayEditShow->poster, 'required']) }}
+				                <p class='text text-danger'>{{ $errors->first('poster') }}</p>
 				        	</div>
 				        </div>
 				        <div class="col-lg-12" align="center">

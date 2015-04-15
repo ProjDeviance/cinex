@@ -41,6 +41,10 @@
 				                                <h4 class="modal-title" id="myModalLabel">{{ $displayShow->title }}</h4>
 				                            </div>
 				                            <div class="modal-body">
+				                            <center>
+				                            	<img class="img-thumbnail" src="{{ $displayShow->poster }}" style="width:50%"/>
+				                            </center>
+				                            <br>
 				                            {{ Form::open(['class' => 'form-horizontal']) }}
 				                                <div class='row'>
 				                                    <div class='col-lg-3 text-right'>
@@ -67,14 +71,6 @@
 				                                        <i><a href='{{ $displayShow->video_link }}' target = '_blank'>{{ $displayShow->video_link }}</a></i>
 				                                    </div>
 				                                </div>
-				                                <div class='row'>
-				                                    <div class='col-lg-3 text-right'>
-				                                    {{ Form::label('posterlink_Label', 'Poster Link: ') }}
-				                                    </div>
-				                                    <div class='col-lg-9'>
-				                                       <i><a href='{{ $displayShow->poster }}' target = '_blank'>{{ $displayShow->poster }}</a></i>
-				                                    </div>
-				                                </div> 
 			                                {{ Form::close() }}
 			                                <br>
 			                                <div class='panel panel-default'>
@@ -197,7 +193,7 @@
                             @endif
                             	<br>
 								<!--Title-->
-								{{ Form::open(['type' => 'POST', 'url' => 'manager/shows', 'class' => 'form-horizontal']) }}
+								{{ Form::open(['type' => 'POST', 'url' => 'manager/shows', 'class' => 'form-horizontal', 'files' => true]) }}
 						        <div class="form-group">
 						          	<div class="col-lg-3 col-md-offset-1">
 										{{ Form::label('title_Label', 'Show Title: ') }}
@@ -230,11 +226,14 @@
 						        <!--Poster Link-->
 						        <div class="form-group">
 						      		<div class="col-lg-3 col-md-offset-1">
-										{{ Form::label('posterlink_Label', 'Poster Link: ') }}
+										{{ Form::label('poster_Label', 'Poster Image: ') }}
 									</div>
 									<div class="col-lg-6">
+										<!--
 						                {{ Form::url('poster_link', null, ['class' => 'form-control ', 'placeholder' => 'Poster Link (valid URL)']) }}
-						                <p class='text text-danger'>{{ $errors->first('poster_link') }}</p>
+						                -->
+						                {{ Form::file('poster', ['class' => 'form-control', 'accept' => 'image/*', 'required']) }}
+						                <p class='text text-danger'>{{ $errors->first('poster') }}</p>
 						        	</div>
 						        </div>
 						        <div class="col-lg-12" align="center">
@@ -242,7 +241,6 @@
 						        </div>
 						        {{ Form::close() }}
                             </div>
-
                             <!--Entries-->
                         	@if(Session::get('entryActivePanel'))
                             	<div class="tab-pane fade in active" id="entries">
