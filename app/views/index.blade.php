@@ -57,7 +57,7 @@
                             <div class="menu-category-name list-group-item active">{{$showdetail->title}}</div>
                             <div class="product-image">
                                 <img class="product-image menu-item list-group-item" src="/posters/{{$showdetail->poster}}">
-                            </div> <a href="/list/cinemas/{{$showdetail->id}}" class="menu-item list-group-item"><span class="badge">List Cinemas</span></a>
+                            </div> <a href="/lookforcinema/{{$showdetail->id}}" class="menu-item list-group-item"><span class="badge">View Details</span></a>
 
                         </div>
                         @endforeach

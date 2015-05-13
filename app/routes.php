@@ -104,7 +104,7 @@ Route::group(['prefix' => 'manager'],  function()
 	else
 	{
 		Session::put('management', 1);
-		$cinemas = DB::table('cinemas')
+		$cinemas = DB::table('cinemas')->where('establishment_id', Auth::user()->establishment_id)
 	            ->paginate(10);
 	
 		return View::make('manager.cinemas')->with('cinemas', $cinemas);
@@ -124,17 +124,25 @@ Route::group(['prefix' => 'admin'],  function()
 });
 
 // End of Organized Code
+Route::post('/search', array('uses' => 'ShowEntriesController@search', 'as' =>'/search'));
+Route::get('/lookforcinema/{id}', array('uses' => 'ShowEntriesController@lookCinema'));
+Route::get('/search', function()
+	{	
+		
+		return Redirect::to('/');
+	});
+
+Route::get('/geolocation', function()
+	{	
+		
+		return View::make('geolocation');
+	});
 
 
 Route::get('/callback', function()
-	{
-   		
+	{	
 		Session::put('saved_code', Input::get("code"));
-		
-	
-
 		return Redirect::to('/test/charge');
-	
 	});
 
 

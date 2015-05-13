@@ -237,4 +237,22 @@ class ShowEntriesController extends BaseController {
       return Redirect::to('manager/shows');
     }
   }
-}
+
+  public function search()
+  {
+    
+      $term = Input::get('term');
+      $displayShows =  DB::table('shows')->where('title', 'LIKE', "%$term%")->orWhere('description', 'LIKE', "%$term%")->groupBy('title')->paginate(10);
+      return View::make('results')->with('displayShows', $displayShows);
+    
+  }
+
+  public function lookCinema($id)
+  {
+      $lookShow = Show::find($id);
+      $shows = DB::TABLE('shows')->where('title', $lookShow->title)->paginate(10);
+
+      return View::make('lookcinema')->with('displayShows', $shows);
+    
+  }
+  }

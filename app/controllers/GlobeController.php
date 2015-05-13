@@ -7,7 +7,7 @@ class GlobeController extends BaseController
 
 	public function start()
 	{	
-		if(!Session::get('saved_entry_id'))
+		if(!(Session::get('saved_entry_id')&&Session::get('saved_seat_row')&&Session::get('saved_seat_column')))
 			return Redirect::to("/");
 		
 
@@ -25,7 +25,7 @@ class GlobeController extends BaseController
 
 	public function charge()
 	{
-		if(!Session::get('saved_entry_id'))
+		if(!(Session::get('saved_entry_id')&&Session::get('saved_seat_row')&&Session::get('saved_seat_column')))
 			return Redirect::to("/");
 
 		$globe = new GlobeApi('1');
@@ -58,7 +58,8 @@ class GlobeController extends BaseController
 		{
 			$reservation = new Reservation;
 			$entry = Entry::find(Session::get('saved_entry_id'));
-			
+
+			$reservation->entry_id = $entry->id;
 			
 			Session::put('msgsuccess', 'You have successfully purchased your ticket. Your reference no. will be sent via sms. Please present the message to the cinema. Thank you!');
 

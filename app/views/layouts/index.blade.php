@@ -28,9 +28,7 @@
         </div>
         <div class="collapse navbar-collapse" style="">
             <ul class="nav navbar-nav">
-              <li class="active">
-                <a href="#" class="" style="">Search</a>
-              </li>
+             
               
               @if(!Auth::check())
               <li>
@@ -64,9 +62,28 @@
                <a href="/logout">Log Out</a>
               </li>
               @endif
-                
+             
             </ul>
+
+            <div align="right">
+
+    
+
+                  {{ Form::open(array( 'method'=> 'POST', 'action' => '/search')) }}
+                           
+                  <input type="text" class='form-control'  name ="term" placeholder="Search..." style="width: 150px;" >
+       
+
+                  {{ Form::close();}}
+            
+             
+        
+            </div>
         </div>
+
+
+
+                
         <!--/.nav-collapse -->
     </div>
 </div>
