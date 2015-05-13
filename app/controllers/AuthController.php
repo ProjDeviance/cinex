@@ -74,6 +74,7 @@ class AuthController extends BaseController {
       $establishment = new Establishment;
       $establishment->establishment_name = strip_tags(Input::get('establishment_name'));
       $establishment->address = strip_tags(Input::get('address'));
+
       $establishment->latitude = 0;
       $establishment->longitude = 0;
       $establishment->save();
@@ -82,11 +83,93 @@ class AuthController extends BaseController {
       $userUpdate->establishment_id = $establishment->id;
       $userUpdate->save();
 
-      
+        $address = 'address='.Input::get('address');
+        $address = preg_replace('/\s+/', '+', $address);
+        
+        $this->save_coordinates($address, $establishment->id);
+
+
         Session::put('msgsuccess', 'You have successfully registered.');
         return Redirect::to('/login');
 
     }
   }
+
+   //Google Geocoding
+    
+    public function get_json( $endpoint)
+    {
+        $qryStr = $endpoint;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://maps.googleapis.com/maps/api/geocode/json?' . $qryStr .'&key=AIzaSyDJZTMof34pQ-mg0w9kK_i8tYXk353o7yc'); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, '3');
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $content = trim(curl_exec($ch));
+        curl_close($ch);
+        return $content;
+    }
+    public function save_coordinates($input, $establishmentId)
+    {
+    try
+    {
+          $endpoint = $input;
+          $data = $this->get_json($endpoint);
+
+          $datax = json_decode($data);
+         
+          $results = $datax->results;
+          $first = $results[0];
+          $geometry = $first->geometry;
+          $location = $geometry->location;
+     
+          $locationData = Establishment::find($establishmentId);
+          $locationData->latitude = $location->lat;
+          $locationData->longitude = $location->lng;
+          $locationData->save();
+    }
+    catch( Exception $e )
+    {
+        $locationData = Merchant::where('userId', $userId )->first();
+          $locationData->latitude =  0;
+          $locationData->longitude = 0;
+          $locationData->save();
+    }
+
+    }
+
+    public function address_validator($input)
+    {
+
+      try
+      {
+        
+          $endpoint = $input;
+          $data = $this->get_json($endpoint);
+
+          $datax = json_decode($data);
+
+          $results = $datax->results;
+      
+          $first = $results[0];
+          $types = $first->types;
+      
+        if(in_array("street_address", $types))
+        {
+            return true;
+      }
+      else
+      {
+        return false;
+      }
+
+        }
+    catch( Exception $e )
+    {
+      return false;
+      }
+  }
+    
+
 
 }
