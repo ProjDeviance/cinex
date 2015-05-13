@@ -31,6 +31,15 @@ class ShowEntriesController extends BaseController {
 
     public function editEntryPost($id)
     {
+
+      $start_timeslot = Input::get('start_timeslot');
+      $end_timeslot = Input::get('end_timeslot');
+
+      $start_day = date('d', strtotime(Input::get('start_timeslot')));
+      $end_day = date('d', strtotime(Input::get('end_timeslot')));
+
+      $entryRange = $start_day - $end_day;
+      
       $validator = Validator::make(
           [
               'cinema' => Input::get('cinema'),
@@ -51,6 +60,30 @@ class ShowEntriesController extends BaseController {
       if($validator->fails())
       {
         return Redirect::back()->withInput()->withErrors($validator->messages());
+      }
+      else if($start_timeslot > $end_timeslot)
+      {
+        Show::entrySessions();
+        Session::put("error", "End Timeslot is earlier than the Start Timeslot.");
+        return Redirect::back();
+      }
+      else if($start_timeslot == $end_timeslot)
+      {
+        Show::entrySessions();
+        Session::put("error", "Entry Timeslot doesn't have a valid duration.");
+        return Redirect::back();
+      }
+      else if(($start_timeslot < date('Y-m-d H:i:s')) && ($end_timeslot < date('Y-m-d H:i:s')))
+      {
+        Show::entrySessions();
+        Session::put("error", "Entry Timeslot has passed already. Set the time in advance.");
+        return Redirect::back();
+      }
+      else if($entryRange != 0)
+      {
+        Show::entrySessions();
+        Session::put("error", "Both timeslots are not in the same day. Please check the timeslot range of the entry.");
+        return Redirect::back();
       }
       else
       {
@@ -143,6 +176,15 @@ class ShowEntriesController extends BaseController {
 
     // Add Entry
     else if(Input::has('entrySubmit')) {
+
+      $start_timeslot = Input::get('start_timeslot');
+      $end_timeslot = Input::get('end_timeslot');
+
+      $start_day = date('d', strtotime(Input::get('start_timeslot')));
+      $end_day = date('d', strtotime(Input::get('end_timeslot')));
+
+      $entryRange = $start_day - $end_day;
+
       $validator = Validator::make(
           [
               'cinema' => Input::get('cinema'),
@@ -165,6 +207,31 @@ class ShowEntriesController extends BaseController {
         Session::put('entryActivePanel', 1);
         return Redirect::back()->withInput()->withErrors($validator->messages());
       }
+      else if($start_timeslot > $end_timeslot)
+      {
+        Show::entrySessions();
+        Session::put("error", "End Timeslot is earlier than the Start Timeslot.");
+        return Redirect::to('manager/shows');
+      }
+      else if($start_timeslot == $end_timeslot)
+      {
+        Show::entrySessions();
+        Session::put("error", "Entry Timeslot doesn't have a valid duration.");
+        return Redirect::to('manager/shows');
+      }
+      else if(($start_timeslot < date('Y-m-d H:i:s')) && ($end_timeslot < date('Y-m-d H:i:s')))
+      {
+        Show::entrySessions();
+        Session::put("error", "Entry Timeslot has passed already. Set the time in advance.");
+        return Redirect::to('manager/shows');
+      }
+      else if($entryRange != 0)
+      {
+        Show::entrySessions();
+        Session::put("error", "Both timeslots are not in the same day. Please check the timeslot range of the entry.");
+        return Redirect::to('manager/shows');
+      }
+
       else
       {
         $insertEntry = new Entry;
