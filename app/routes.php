@@ -13,7 +13,7 @@ Route::get('/', function()
 	else
 	{
 		if(Auth::user()->user_type==0)
-			return Redirect::to("/manager");
+			return Redirect::to("/manager/cinemas");
 		else
 			return Redirect::to("/admin");
 	}

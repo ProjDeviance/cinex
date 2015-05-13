@@ -54,6 +54,10 @@
         <td ></td>
     </tr>
 
+    		<?php  
+    		$show_array = array();
+    		$establishment_array = array();
+    		?>
 
             @foreach($displayShows as $displayShow)
 
@@ -61,7 +65,8 @@
             $entries = Entry::where("show_id", $displayShow->id)->where('start_timeslot', '>', new DateTime('today'))->orderBy('start_timeslot', 'ASC')->get();
     
             $establishment = Establishment::find($displayShow->establishment_id);
-            
+            $establishment_array[] = $establishment->id;
+            $show_array[] = $displayShow->id;
             ?>
 
             <!-- Modal-->
@@ -147,15 +152,10 @@
 				                <!--End Modal-->
 
                 <tr >
-
                     <td colspan ="5">{{ $establishment->address  }}</td>
                     	<td colspan ="2">
                     	{{ Form::button('<i class="fa fa-search"></i>', ['data-toggle' => 'modal', 'data-target' => '#viewModal'.$establishment->id, 'type' => 'button', 'class' => 'btn btn-info']) }}
-                  		
-          				
-          					
           				</td>
-
                 </tr>
 
             @endforeach
@@ -172,7 +172,20 @@
 </div>
 </div>
 </div>
-	</div>
+ <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading" align='center'>
+                 Search the Nearest Cinema
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12" align="center">
+
+                        </div>
+                    </div>
+                </div>
+             </div>
+</div>
 </div>
 @stop
 

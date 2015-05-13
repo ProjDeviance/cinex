@@ -319,7 +319,143 @@ class ShowEntriesController extends BaseController {
       $lookShow = Show::find($id);
       $shows = DB::TABLE('shows')->where('title', $lookShow->title)->paginate(10);
 
+
       return View::make('lookcinema')->with('displayShows', $shows);
     
   }
+
+  public function geosearch()
+  {
+      $establishment_arrays = Session::get('establishment_arrays');
+      $show_arrays = Session::get('show_arrays');
+
+      $establishments = DB::TABLE('establishments')->whereIn('id', $establishment_arrays)->paginate(10);
+       
+        $address = 'address='.Input::get('address');
+        $address = preg_replace('/\s+/', '+', $address);
+      
+        $this->save_coordinates($address, $establishment->id);
+
+      $buildings = Establishment::select(
+               DB::raw("*,
+                             ( 6371 * acos( cos( radians(?) ) *
+                               cos( radians( lat ) )
+                               * cos( radians( lon ) - radians(?)
+                               ) + sin( radians(?) ) *
+                               sin( radians( lat ) ) )
+                             ) AS distance"))
+               ->having("distance", "<", "?")
+               ->orderBy("distance")
+               ->setBindings([$lat, $lon, $lat,  $radius])
+               ->get();
+      
+      return View::make('lookcinema')->with('displayShows', $shows);
+    
+  }
+
+  //Google Geocoding
+    
+    public function get_json( $endpoint)
+    {
+        $qryStr = $endpoint;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://maps.googleapis.com/maps/api/geocode/json?' . $qryStr .'&key=AIzaSyDJZTMof34pQ-mg0w9kK_i8tYXk353o7yc'); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, '3');
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $content = trim(curl_exec($ch));
+        curl_close($ch);
+        return $content;
+    }
+    public function save_coordinates($input, $establishmentId)
+    {
+    try
+    {
+          $endpoint = $input;
+          $data = $this->get_json($endpoint);
+
+          $datax = json_decode($data);
+         
+          $results = $datax->results;
+          $first = $results[0];
+          $geometry = $first->geometry;
+          $location = $geometry->location;
+     
+          $locationData = Establishment::find($establishmentId);
+          $locationData->latitude = $location->lat;
+          $locationData->longitude = $location->lng;
+          $locationData->save();
+    }
+    catch( Exception $e )
+    {
+        $locationData = Establishment::find($establishmentId);
+          $locationData->latitude =  0;
+          $locationData->longitude = 0;
+          $locationData->save();
+    }
+
+    }
+    public function get_coordinates($input, $establishmentId)
+    {
+    try
+    {
+          $endpoint = $input;
+          $data = $this->get_json($endpoint);
+
+          $datax = json_decode($data);
+         
+          $results = $datax->results;
+          $first = $results[0];
+          $geometry = $first->geometry;
+          $location = $geometry->location;
+     
+     
+          Session::put('saved_lat',$location->lat);
+          $locationData->longitude = $location->lng;
+
+    }
+    catch( Exception $e )
+    {
+        $locationData = Merchant::where('userId', $userId )->first();
+          $locationData->latitude =  0;
+          $locationData->longitude = 0;
+          $locationData->save();
+    }
+
+    }
+
+
+    public function address_validator($input)
+    {
+
+      try
+      {
+        
+          $endpoint = $input;
+          $data = $this->get_json($endpoint);
+
+          $datax = json_decode($data);
+
+          $results = $datax->results;
+      
+          $first = $results[0];
+          $types = $first->types;
+      
+        if(in_array("street_address", $types))
+        {
+            return true;
+      }
+      else
+      {
+        return false;
+      }
+
+        }
+    catch( Exception $e )
+    {
+      return false;
+      }
+  }
+    
+
   }

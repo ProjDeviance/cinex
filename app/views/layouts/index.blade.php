@@ -36,7 +36,7 @@
               </li>
 				
 				      <li>
-					     <a href="register">Register</a>
+					     <a href="/register">Register</a>
               </li>
               @endif
 
@@ -49,10 +49,10 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Shows & Entries<span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li>
-                      <a href="{{ URL::to('manager/shows') }}"><i class='fa fa-film'></i> Manage Shows</a>
+                      <a href="{{ URL::to('/manager/shows') }}"><i class='fa fa-film'></i> Manage Shows</a>
                       </li>
                     <li>
-                      <a href="{{ URL::to('manager/entries') }}"><i class='fa fa-level-down'></i> Manage Entries</a>
+                      <a href="{{ URL::to('/manager/entries') }}"><i class='fa fa-level-down'></i> Manage Entries</a>
                       </li>
                   </ul>
                 </li>
