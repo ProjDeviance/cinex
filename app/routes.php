@@ -121,9 +121,26 @@ Route::group(['prefix' => 'admin'],  function()
 	Route::get('/activate/{id}', array('uses' => 'AdminController@activate'))->before('admin');
 	Route::get('/deactivate/{id}', array('uses' => 'AdminController@deactivate'))->before('admin');
 
-
 });
 
 // End of Organized Code
 
 
+Route::get('/callback', function()
+	{
+   		
+		Session::put('saved_code', Input::get("code"));
+		
+	
+
+		return Redirect::to('/test/charge');
+	
+	});
+
+
+Route::group(['prefix' => 'test'],  function() 
+{	
+	Route::get('/start', array('uses' => 'GlobeController@start'));
+	
+	Route::get('/charge', array('uses' => 'GlobeController@charge'));
+});
