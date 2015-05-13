@@ -12,8 +12,13 @@
 					<div class='alert alert-success successAlert'>
 						<center>{{ Session::get('success') }}</center>
 					</div>
+				@elseif(Session::get('error'))
+					<div class='alert alert-danger'>
+						<center>{{ Session::get('error') }}</center>
+					</div>
 				@endif
 				{{ Session::forget('success') }}
+				{{ Session::forget('error') }}
 
 				<div class='alert alert-success deleteAlert' style='display:none'>
 					<center>Show has been deleted.</center>
@@ -256,9 +261,18 @@
 									</div>
 									<div class="col-lg-6">
 										<select name='cinema' class='form-control'>
-											@foreach($displayCinemas as $displayCinema)
-												<option value='{{ $displayCinema->name }}'>{{ $displayCinema->name }}</option>
-											@endforeach
+											@if(Session::get('cinema'))
+												<option value="{{ Session::get('cinema') }}">{{ Session::get('cinema') }}</option>
+												@foreach($displayCinemas as $displayCinema)
+													@if($displayCinema != Session::get('cinema'))
+														<option value='{{ $displayCinema->name }}'>{{ $displayCinema->name }}</option>
+													@endif
+												@endforeach
+											@else
+												@foreach($displayCinemas as $displayCinema)
+													<option value='{{ $displayCinema->name }}'>{{ $displayCinema->name }}</option>
+												@endforeach
+											@endif
 										</select>
 						                <p class='text text-danger'>{{ $errors->first('cinema') }}</p>
 						        	</div>
@@ -270,9 +284,18 @@
 									</div>
 									<div class="col-lg-6">
 										<select name='show' class='form-control' id='showSelect'>
-											@foreach($displayShows as $displayShow)
-												<option value='{{ $displayShow->title }}'>{{ $displayShow->title }}</option>
-											@endforeach
+											@if(Session::get('show'))
+												<option value="{{ Session::get('show') }}">{{ Session::get('show') }}</option>
+												@foreach($displayShows as $displayShow)
+													@if($displayShow->title != Session::get('show'))
+														<option value='{{ $displayShow->title }}'>{{ $displayShow->title }}</option>
+													@endif
+												@endforeach
+											@else
+												@foreach($displayShows as $displayShow)
+													<option value='{{ $displayShow->title }}'>{{ $displayShow->title }}</option>
+												@endforeach
+											@endif
 										</select>
 						                <p class='text text-danger'>{{ $errors->first('show') }}</p>
 						        	</div>
@@ -283,7 +306,7 @@
 										{{ Form::label('price_Label', 'Price: ') }}
 									</div>
 									<div class="col-lg-6">
-										{{ Form::number('price', null, ['class' => 'form-control', 'placeholder' => "Set a price for this show's entry", 'required' => '']) }}
+										{{ Form::number('price', Session::get('price'), ['class' => 'form-control', 'placeholder' => "Set a price for this show's entry", 'required' => '']) }}
 						                <p class='text text-danger'>{{ $errors->first('price') }}</p>
 						        	</div>
 						        </div>
@@ -294,7 +317,7 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="input-group date datetimepicker">
-							                {{ Form::text('start_timeslot', null, ['class' => 'form-control', 'readonly' => '', 'data-datepicker' => 'datepicker', 'required' => '']) }}
+							                {{ Form::text('start_timeslot', Session::get('start_timeslot'), ['class' => 'form-control', 'readonly' => '', 'data-datepicker' => 'datepicker', 'required' => '']) }}
 							                <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 						                </div>
 						                <p class='text text-danger'>{{ $errors->first('start_timeslot') }}</p>
@@ -307,7 +330,7 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="input-group date datetimepicker">
-							                {{ Form::text('end_timeslot', null, ['class' => 'form-control', 'readonly' => '', 'data-datepicker' => 'datepicker', 'required' => '']) }}
+							                {{ Form::text('end_timeslot', Session::get('end_timeslot'), ['class' => 'form-control', 'readonly' => '', 'data-datepicker' => 'datepicker', 'required' => '']) }}
 							                <span class="input-group-addon"><span class="fa fa-calendar"></span></span>							                
 						                </div>
 						                <p class='text text-danger'>{{ $errors->first('end_timeslot') }}</p>
@@ -318,6 +341,13 @@
 						        </div>
 						        {{ Form::close() }}
 						        {{ Session::forget('entryActivePanel') }}
+
+						        {{ Session::forget('cinema') }}
+						        {{ Session::forget('show') }}
+						        {{ Session::forget('price') }}
+						        {{ Session::forget('start_timeslot') }}
+						        {{ Session::forget('end_timeslot') }}
+
                             </div>
                         </div>
 					</div>

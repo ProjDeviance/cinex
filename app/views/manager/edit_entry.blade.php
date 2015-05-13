@@ -8,7 +8,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-
+				@if(Session::get('error'))
+					<div class='alert alert-danger'>
+						<center>{{ Session::get('error') }}</center>
+					</div>
+				@endif
+				{{ Session::forget('error') }}
 			</div>
 			<div class="col-lg-6">
 				<div class="panel panel-default">
