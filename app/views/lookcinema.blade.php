@@ -54,6 +54,7 @@
         <td ></td>
     </tr>
 
+    		@if($establishments==NULL)
     		<?php  
     		$show_array = array();
     		$establishment_array = array();
@@ -159,13 +160,136 @@
                 </tr>
 
             @endforeach
+
+			@else
+
+			<?php  
+		
+    		$establishment_array= Session::get('establishment_arrays');
+    		$show_array = Session::get('show_arrays');
+
+    		?>
+
+
+            @foreach($establishments as $establishment)
+
+            <?php
+            $displayShow = Show::where('establishment_id', $establishment->id)->whereIn('id', $show_array )->first();
+            $entries = Entry::where("show_id", $displayShow->id)->where('start_timeslot', '>', new DateTime('today'))->orderBy('start_timeslot', 'ASC')->get();
+    
+        
+            $establishment_array[] = $establishment->id;
+            $show_array[] = $displayShow->id;
+            ?>
+
+            <!-- Modal-->
+             <div class="modal fade" id="viewModal{{ $establishment->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				                    <div class="modal-dialog">
+				                        <div class="modal-content">
+				                            <div class="modal-header">
+				                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				                                <h4 class="modal-title" id="myModalLabel">{{ $establishment->name }}</h4>
+				                            </div>
+				                            <div class="modal-body">
+				                            <center>
+				                            	<img class="img-thumbnail" src="{{ $displayShow->poster }}" style="width:50%"/>
+				                            </center>
+				                            <br>
+				                            {{ Form::open(['class' => 'form-horizontal']) }}
+				                                <div class='row'>
+				                                    <div class='col-lg-3 text-right'>
+				                                    {{ Form::label('title_Label', 'Location: ') }}
+				                                    </div>
+				                                    <div class='col-lg-9'>
+				                                       <i>{{ $establishment->address }} {{$establishment->distance}}</i>
+				                                    </div>
+				                                </div>
+				                                 <br>
+				                                  <br>
+				                                <?php 
+				                                $cinemaCheck = null;
+				                                ?>
+				                                @foreach($entries as $entry)
+				                                @if($cinemaCheck!=$entry->cinema_id)
+				                                <?php
+				                                $cinemaCheck = $entry->cinema_id;
+				                                $cinemaLook = Cinema::find($entry->cinema_id);
+				                                ?>
+				                                <div class='row'>
+				                                    <div class='col-lg-3 text-right'>
+				                                    {{ Form::label('title_Label', 'Cinema: ') }}
+				                                    </div>
+				                                    <div class='col-lg-9'>
+				                                       <i>{{ $cinemaLook->name }}</i>
+				                                    </div>
+				                                </div>
+				                                @endif
+				                                <div class='row'>
+				                                    <div class='col-lg-3 text-right'>
+				                                    
+				                                    </div>
+				                                    <div class='col-lg-9'>
+				                                       <i>{{ $entry->start_timeslot }}  -  {{$entry->end_timeslot}}</i>
+				                                    </div>
+				                                </div>
+				                                @endforeach
+				                                <?php
+  												$text = strtolower(htmlentities($establishment->address)); 
+    											$text = str_replace(get_html_translation_table(), "-", $text);
+    											$text = str_replace(" ", "+", $text);
+    											$text = preg_replace("/[-]+/i", "+", $text);
+
+				                                ?>
+
+				                                <br><br>
+				                                <div class="row">
+				                                	<iframe
+  													width="500"
+  													height="450"
+  													frameborder="0" style="border:0"
+  													src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCrqM3MFU1zftmI_est6qd4zvakbt8mn-4&q={{$text}}">
+													</iframe>
+				                                </div>
+
+			                                {{ Form::close() }}
+			                                <br>
+			                                
+			                              
+				                            </div>
+				                            <div class="modal-footer">
+				                                <button type="button" class="deleteAccount btn btn-default" id='{{ $displayShow->id }}' data-dismiss='modal'>Close</button>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				                <!--End Modal-->
+
+                <tr >
+                    <td colspan ="5">{{ $establishment->address  }}</td>
+                    	<td colspan ="2">
+                    	{{ Form::button('<i class="fa fa-search"></i>', ['data-toggle' => 'modal', 'data-target' => '#viewModal'.$establishment->id, 'type' => 'button', 'class' => 'btn btn-info']) }}
+          				</td>
+                </tr>
+
+            @endforeach
+
+            @endif
+
+
+
+
         </tbody>
     </table>
 
-
+    @if($establishments==NULL)
     <center>{{ $displayShows->links(); }}</center>
+  
+    @endif
     </div>
-
+<?php
+			Session::put('establishment_arrays', $establishment_array);
+    		Session::put('show_arrays', $show_array);
+?>
    
 </div>
 </div>
@@ -180,11 +304,44 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12" align="center">
-
+						{{ Form::open(['type' => 'POST', 'url' => '/geosearch', 'class' => 'form-horizontal', 'files' => true]) }}
+						        <div class="form-group">
+						          	<div class="col-lg-3 col-md-offset-1">
+										{{ Form::label('title_Label', 'Your Location: ') }}
+									</div>
+									<div class="col-lg-6">
+						                {{ Form::text('address', null, ['class' => 'form-control  ', 'placeholder' => 'Address', 'required' => '']) }}
+						                <p class='text text-danger'>{{ $errors->first('address') }}</p>
+						        	</div>
+						        </div>
+						        
+						        <div class="col-lg-12" align="center">
+						            <input type="submit" class="btn btn-success left-sbs" name="showSubmit" value="Geosearch">
+						        </div>
+						        {{ Form::close() }}
                         </div>
+                       
+                        <br>
+                        <br>
+                  
                     </div>
                 </div>
+
+
              </div>
+                   @if(Session::get('addresstext'))
+                        <div class="row">
+
+                        	<div>
+                        	<iframe
+  													width="450"
+  													height="400"
+  													frameborder="0" style="border:0"
+  													src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCrqM3MFU1zftmI_est6qd4zvakbt8mn-4&q={{Session::get('addresstext')}}">
+													</iframe>
+												</div>
+                        </div>
+                        @endif
 </div>
 </div>
 @stop

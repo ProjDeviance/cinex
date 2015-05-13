@@ -125,8 +125,14 @@ Route::group(['prefix' => 'admin'],  function()
 
 // End of Organized Code
 Route::post('/search', array('uses' => 'ShowEntriesController@search', 'as' =>'/search'));
+Route::post('/geosearch', array('uses' => 'ShowEntriesController@geosearch', 'as' =>'/geosearch'));
 Route::get('/lookforcinema/{id}', array('uses' => 'ShowEntriesController@lookCinema'));
 Route::get('/search', function()
+	{	
+		
+		return Redirect::to('/');
+	});
+Route::get('/geosearch', function()
 	{	
 		
 		return Redirect::to('/');

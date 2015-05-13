@@ -251,9 +251,9 @@ class ShowEntriesController extends BaseController {
   {
       $lookShow = Show::find($id);
       $shows = DB::TABLE('shows')->where('title', $lookShow->title)->paginate(10);
+      $establishments=NULL;
 
-
-      return View::make('lookcinema')->with('displayShows', $shows);
+      return View::make('lookcinema')->with('displayShows', $shows)->with('establishments', $establishments);
     
   }
 
@@ -262,27 +262,30 @@ class ShowEntriesController extends BaseController {
       $establishment_arrays = Session::get('establishment_arrays');
       $show_arrays = Session::get('show_arrays');
 
-      $establishments = DB::TABLE('establishments')->whereIn('id', $establishment_arrays)->paginate(10);
-       
         $address = 'address='.Input::get('address');
         $address = preg_replace('/\s+/', '+', $address);
       
-        $this->save_coordinates($address, $establishment->id);
+        $this->get_coordinates($address);
 
-      $buildings = Establishment::select(
+        $lon =  Session::get('saved_lng');
+        $lat =  Session::get('saved_lat');
+       
+
+        $establishments = Establishment::select(
                DB::raw("*,
-                             ( 6371 * acos( cos( radians(?) ) *
-                               cos( radians( lat ) )
-                               * cos( radians( lon ) - radians(?)
-                               ) + sin( radians(?) ) *
-                               sin( radians( lat ) ) )
-                             ) AS distance"))
-               ->having("distance", "<", "?")
-               ->orderBy("distance")
-               ->setBindings([$lat, $lon, $lat,  $radius])
+                              ( 6371 * acos( cos( radians(".$lat.") ) 
+* cos( radians( latitude ) ) 
+* cos( radians( longitude ) - radians(".$lon.") ) + sin( radians(".$lat.") ) 
+* sin( radians( latitude ) ) ) )  AS distance"))
+           
+              ->orderBy("distance", "ASC")
+               
+               ->whereIn('id',$establishment_arrays)
                ->get();
-      
-      return View::make('lookcinema')->with('displayShows', $shows);
+               
+      Session::put("addresstext", preg_replace('/\s+/', '+', Input::get('address')));
+              
+      return View::make('lookcinema')->with('establishments', $establishments);
     
   }
 
@@ -328,7 +331,7 @@ class ShowEntriesController extends BaseController {
     }
 
     }
-    public function get_coordinates($input, $establishmentId)
+    public function get_coordinates($input)
     {
     try
     {
@@ -344,15 +347,13 @@ class ShowEntriesController extends BaseController {
      
      
           Session::put('saved_lat',$location->lat);
-          $locationData->longitude = $location->lng;
+          Session::put('saved_lng',$location->lng);
 
     }
     catch( Exception $e )
     {
-        $locationData = Merchant::where('userId', $userId )->first();
-          $locationData->latitude =  0;
-          $locationData->longitude = 0;
-          $locationData->save();
+        Session::put('saved_lat',0);
+        Session::put('saved_lng',0);
     }
 
     }
