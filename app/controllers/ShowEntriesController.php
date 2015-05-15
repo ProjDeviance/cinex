@@ -459,4 +459,18 @@ class ShowEntriesController extends BaseController {
   }
     
 
+
+
+
+public function buy(){
+
+    $entry_id=Input::get('entry_id');
+    $entry = Entry::find($entry_id);
+    $cinema = Cinema::find($entry->cinema_id);
+    Session::put('saved_entry_id',$entry_id);
+    Session::put('saved_amount',Input::get('amount'));
+
+    return Redirect::to('/test/start');
+
+}
   }

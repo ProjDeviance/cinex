@@ -111,15 +111,25 @@
 				                                       <i>{{ $cinemaLook->name }}</i>
 				                                    </div>
 				                                </div>
+				                                <br>
 				                                @endif
 				                                <div class='row'>
-				                                    <div class='col-lg-3 text-right'>
-				                                    
+				                                    <div class='col-lg-4'>
+				                                   {{ Form::open(['type' => 'POST', 'url' => '../buy']) }}
+									
+													<input type="hidden" name="entry_id" value="{{$entry->id}}">
+						                			{{ Form::number('amount', 1, ['class' => '', 'placeholder' => 'amount', 'required' => '', 'style' => 'width: 30px']) }}
+						                			<button class="btn btn-default" type="submit">
+                                    				Buy
+                                					</button>
+						 
+						        					{{ Form::close() }}
 				                                    </div>
-				                                    <div class='col-lg-9'>
+				                                    <div class='col-lg-8'>
 				                                       <i>{{ $entry->start_timeslot }}  -  {{$entry->end_timeslot}}</i>
 				                                    </div>
 				                                </div>
+				                                <br>
 				                                @endforeach
 				                                <?php
   												$text = strtolower(htmlentities($establishment->address)); 
@@ -195,8 +205,7 @@
 				                            	<img class="img-thumbnail" src="{{ $displayShow->poster }}" style="width:50%"/>
 				                            </center>
 				                            <br>
-				                            {{ Form::open(['class' => 'form-horizontal']) }}
-				                                <div class='row'>
+				                        		<div class='row'>
 				                                    <div class='col-lg-3 text-right'>
 				                                    {{ Form::label('title_Label', 'Location: ') }}
 				                                    </div>
@@ -223,15 +232,24 @@
 				                                       <i>{{ $cinemaLook->name }}</i>
 				                                    </div>
 				                                </div>
+				                                <br>
 				                                @endif
 				                                <div class='row'>
-				                                    <div class='col-lg-3 text-right'>
-				                                    
+				                                    <div class='col-lg-4 text-right'>
+				                                    {{ Form::open(['type' => 'POST', 'url' => '../buy' ]) }}
+													<input type="hidden" name="entry_id" value="{{$entry->id}}">
+						                			{{ Form::number('amount', 1, ['class' => '', 'placeholder' => 'amount', 'required' => '', 'style' => 'width: 30px']) }}
+						                			
+						 							<button class="btn btn-default" type="submit">
+                                    				Buy
+                                					</button>
+						        					{{ Form::close() }}
 				                                    </div>
-				                                    <div class='col-lg-9'>
+				                                    <div class='col-lg-8'>
 				                                       <i>{{ $entry->start_timeslot }}  -  {{$entry->end_timeslot}}</i>
 				                                    </div>
 				                                </div>
+				                                <br>
 				                                @endforeach
 				                                <?php
   												$text = strtolower(htmlentities($establishment->address)); 
@@ -251,7 +269,7 @@
 													</iframe>
 				                                </div>
 
-			                                {{ Form::close() }}
+			                      
 			                                <br>
 			                                
 			                              

@@ -14,9 +14,16 @@
 <div class="container">
     
         <div class="container">
+          @if(Session::get('success'))
+      <div class="alert alert-success fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <center>{{ Session::get('success') }}</center>
+      </div>
+      {{ Session::forget('success') }}
+    @endif
             <div class="menu row">
                 <div class="product col-sm-6">
-                  <img class="img-responsive" src="/logo.png"> ---CiNex Logo--- 
+                  <img class="img-responsive" src="/logo.png" width="100px" height="100px">
 					         <hr>
 
                     <ul class="nav nav-tabs">
@@ -60,6 +67,7 @@
                             </div> <a href="/lookforcinema/{{$showdetail->id}}" class="menu-item list-group-item"><span class="badge">View Details</span></a>
 
                         </div>
+
                         @endforeach
                       
 

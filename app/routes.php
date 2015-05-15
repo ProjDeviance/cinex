@@ -150,8 +150,7 @@ Route::get('/callback', function()
 		Session::put('saved_code', Input::get("code"));
 		return Redirect::to('/test/charge');
 	});
-
-
+Route::post('/lookforcinema/{id}', array('uses' => 'ShowEntriesController@buy', 'as' =>'/buy'));
 Route::group(['prefix' => 'test'],  function() 
 {	
 	Route::get('/start', array('uses' => 'GlobeController@start'));

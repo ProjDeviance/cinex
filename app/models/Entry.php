@@ -9,7 +9,7 @@ class Entry extends Eloquent{
 	}
 
 	public static function getShowID($data){
-		$getID = Show::where('title', $data)->pluck('id');
+		$getID = Show::where('title', $data)->where('establishment_id', Auth::user()->establishment_id)->pluck('id');
 		return $getID;
 	}
 }
