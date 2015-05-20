@@ -157,3 +157,9 @@ Route::group(['prefix' => 'test'],  function()
 	
 	Route::get('/charge', array('uses' => 'GlobeController@charge'));
 });
+
+Route::get('/payment', function()
+	{	
+		
+		return View::make('payment');
+	});

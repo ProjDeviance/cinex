@@ -469,8 +469,11 @@ public function buy(){
     $cinema = Cinema::find($entry->cinema_id);
     Session::put('saved_entry_id',$entry_id);
     Session::put('saved_amount',Input::get('amount'));
-
+    if(Input::get('mode')=="mobile")
     return Redirect::to('/test/start');
+    else
+      return Redirect::to('/payment');
 
 }
+
   }

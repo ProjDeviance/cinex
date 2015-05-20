@@ -109,6 +109,7 @@ class AuthController extends BaseController {
         curl_close($ch);
         return $content;
     }
+    
     public function save_coordinates($input, $establishmentId)
     {
     try
@@ -130,7 +131,7 @@ class AuthController extends BaseController {
     }
     catch( Exception $e )
     {
-        $locationData = Merchant::where('userId', $userId )->first();
+        $locationData = Establishment::where('userId', $userId )->first();
           $locationData->latitude =  0;
           $locationData->longitude = 0;
           $locationData->save();

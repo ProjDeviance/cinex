@@ -115,10 +115,14 @@
 				                                @endif
 				                                <div class='row'>
 				                                    <div class='col-lg-4'>
-				                                   {{ Form::open(['type' => 'POST', 'url' => '../buy']) }}
+				                                   {{ Form::open(['type' => 'POST', 'url' => '/buy']) }}
 									
 													<input type="hidden" name="entry_id" value="{{$entry->id}}">
 						                			{{ Form::number('amount', 1, ['class' => '', 'placeholder' => 'amount', 'required' => '', 'style' => 'width: 30px']) }}
+						                			<select name="mode">
+						                				<option value="mobile" selected>Globe Load</option>
+						                				<option value="credit">Credit Card</option>
+						                			</select>
 						                			<button class="btn btn-default" type="submit">
                                     				Buy
                                 					</button>
