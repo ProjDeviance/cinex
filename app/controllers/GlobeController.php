@@ -74,7 +74,7 @@ class GlobeController extends BaseController
 			$reservation->entry_id = $entry->id;
 			$reservation->establishment_id=$entry->establishment_id;
 			$reservation->cinema_id =$entry->cinema_id;
-			$reservation->reference_code =$entry->reference_code;
+			$reservation->reference_code =$ref_no;
 			$reservation->show_id =$entry->show_id;
 			$reservation->save();
 		}	

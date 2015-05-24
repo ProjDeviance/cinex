@@ -123,14 +123,19 @@
 						                				<option value="mobile" selected>Globe Load</option>
 						                				<option value="credit">Credit Card</option>
 						                			</select>
-						                			<button class="btn btn-default" type="submit">
+						                			<button class="btn btn-xs btn-default" type="submit">
                                     				Buy
                                 					</button>
 						 
 						        					{{ Form::close() }}
 				                                    </div>
 				                                    <div class='col-lg-8'>
-				                                       <i>{{ $entry->start_timeslot }}  -  {{$entry->end_timeslot}}</i>
+				                                       <b><?php
+				                                       $reserved = Reservation::where("entry_id", $entry->id)->count();
+				                                       $cinemalimit = Cinema::find($entry->cinema_id);
+
+				                                      	echo ($cinemalimit->seat_rows*$cinemalimit->seat_columns) - $reserved;
+				                                       ?> seats</b>&nbsp;<i>{{ $entry->start_timeslot }}  -  {{$entry->end_timeslot}}</i>
 				                                    </div>
 				                                </div>
 				                                <br>
@@ -243,14 +248,22 @@
 				                                    {{ Form::open(['type' => 'POST', 'url' => '../buy' ]) }}
 													<input type="hidden" name="entry_id" value="{{$entry->id}}">
 						                			{{ Form::number('amount', 1, ['class' => '', 'placeholder' => 'amount', 'required' => '', 'style' => 'width: 30px']) }}
-						                			
-						 							<button class="btn btn-default" type="submit">
+						                			<select name="mode">
+						                				<option value="mobile" selected>Globe Load</option>
+						                				<option value="credit">Credit Card</option>
+						                			</select>
+						 							<button class="btn btn-xs btn-default" type="submit">
                                     				Buy
                                 					</button>
 						        					{{ Form::close() }}
 				                                    </div>
 				                                    <div class='col-lg-8'>
-				                                       <i>{{ $entry->start_timeslot }}  -  {{$entry->end_timeslot}}</i>
+				                                       <b><?php
+				                                       $reserved = Reservation::where("entry_id", $entry->id)->count();
+				                                       $cinemalimit = Cinema::find($entry->cinema_id);
+
+				                                      	echo ($cinemalimit->seat_rows*$cinemalimit->seat_columns) - $reserved;
+				                                       ?> seats</b>&nbsp;<i>{{ $entry->start_timeslot }}  -  {{$entry->end_timeslot}}</i>
 				                                    </div>
 				                                </div>
 				                                <br>

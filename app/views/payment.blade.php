@@ -35,7 +35,7 @@ $show = Show::find($entry->show_id);
   var brick = new Brick({
     public_key: 't_a5d310fbf88ffd50c2073ebad4faa4',
     amount: <?php echo $entry->price; ?>,
-    currency: 'USD',
+    currency: 'PHP',
     container: 'payment-form-container',
     action: '/billing',
     form: {

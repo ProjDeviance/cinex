@@ -61,7 +61,6 @@ Route::group(['prefix' => 'manager'],  function()
 	}
 	});
 
-	Route::group(array('before' => 'auth'), function(){
 		//Show & Entries
 		Route::get('/shows', 'ShowEntriesController@displayShowEntries');
 		Route::post('/shows', 'ShowEntriesController@addShow');
@@ -72,7 +71,10 @@ Route::group(['prefix' => 'manager'],  function()
 		Route::post('/entries', 'ShowEntriesController@deleteEntry');
 		Route::get('/entries/edit/{id}', 'ShowEntriesController@editEntry');
 		Route::post('/entries/edit/{id}', 'ShowEntriesController@editEntryPost');
-	});
+
+		Route::get('/reserve', 'ReserveController@reserve');
+		Route::post('/reserve', 'ReserveController@reservePOST');
+
 
 	//Cinema
 	Route::get('/cinemas/edit/{id}', function($id)

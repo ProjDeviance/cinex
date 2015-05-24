@@ -54,6 +54,9 @@
                     <li>
                       <a href="{{ URL::to('/manager/entries') }}"><i class='fa fa-level-down'></i> Manage Entries</a>
                       </li>
+                    <li>
+                      <a href="{{ URL::to('/manager/reserve') }}"><i class='fa fa-rocket'></i> Reserve</a>
+                      </li>
                   </ul>
                 </li>
                 @endif
